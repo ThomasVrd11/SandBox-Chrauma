@@ -23,7 +23,7 @@ public class AnimationAndMovementController : MonoBehaviour
     Vector3 currentRunMovement;
     Vector3 appliedMovement;
     bool isMovementPressed;
-    bool isRUnPressed;
+    bool isRunPressed;
 
     // * ########## Constants movement ########## * //
     float rotationFactorPerFrame = 15.0f;
