@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 public class AnimationAndMovementController : MonoBehaviour
 {
     // * ########## Variables ########## * //
-    PlayerInput playerInput,
+    PlayerInput playerInput;
     CharacterController characterController;
     Animator animator;
 
