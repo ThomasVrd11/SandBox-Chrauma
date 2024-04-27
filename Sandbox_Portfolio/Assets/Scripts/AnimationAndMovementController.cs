@@ -21,7 +21,7 @@ public class AnimationAndMovementController : MonoBehaviour
     Vector2 currentMovementInput;
     Vector3 currentMovement;
     Vector3 currentRunMovement;
-    appliedMovement;
+    Vector3 appliedMovement;
     bool isMovementPressed;
     bool isRUnPressed;
 
