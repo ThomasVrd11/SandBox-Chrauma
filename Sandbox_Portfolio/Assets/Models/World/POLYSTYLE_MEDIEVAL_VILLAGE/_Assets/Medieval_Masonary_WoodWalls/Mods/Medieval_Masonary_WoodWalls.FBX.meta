@@ -1,0 +1,214 @@
+fileFormatVersion: 2
+guid: 515fc6e7599a9ee4e8d44243707a256f
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Medieval_Masonary_WoodLarge_Curved_LOD1
+    100002: Medieval_Masonary_WoodLarge_StrongSupportColumn
+    100004: Medieval_Masonary_WoodLarge_StrongSupportColumn_LOD1
+    100006: Medieval_Masonary_WoodLarge_StrongSupportLow
+    100008: Medieval_Masonary_WoodLarge_StrongSupportLow_LOD1
+    100010: Medieval_Masonary_WoodLarge_Wall
+    100012: Medieval_Masonary_WoodLarge_Wall_LOD1
+    100014: Medieval_Masonary_WoodLarge_Wall_LOD2
+    100016: Medieval_Masonary_WoodLarge_WallHalf
+    100018: Medieval_Masonary_WoodLarge_WallHalf_LOD1
+    100020: Medieval_Masonary_WoodLarge_WallHalf_LOD2
+    100022: Medieval_Masonary_WoodLarge_WallLow
+    100024: Medieval_Masonary_WoodLarge_WallLow_LOD1
+    100026: Medieval_Masonary_WoodLarge_WallLower
+    100028: Medieval_Masonary_WoodLarge_WallLower_LOD1
+    100030: Medieval_Masonary_WoodLarge_WallWindows
+    100032: Medieval_Masonary_WoodLarge_WallWindows_LOD1
+    100034: Medieval_Masonary_WoodLargeWall_Corner
+    100036: Medieval_Masonary_WoodLargeWall_Corner_LOD1
+    100038: Medieval_Masonary_WoodLargeWall_CornerLow
+    100040: Medieval_Masonary_WoodLargeWall_CornerLow_LOD1
+    100042: Medieval_Masonary_WoodLargeWall_CornerLower
+    100044: Medieval_Masonary_WoodLargeWall_CornerLower_LOD1
+    100046: Medieval_Masonary_WoodLargeWall_Curved
+    100048: //RootNode
+    400000: Medieval_Masonary_WoodLarge_Curved_LOD1
+    400002: Medieval_Masonary_WoodLarge_StrongSupportColumn
+    400004: Medieval_Masonary_WoodLarge_StrongSupportColumn_LOD1
+    400006: Medieval_Masonary_WoodLarge_StrongSupportLow
+    400008: Medieval_Masonary_WoodLarge_StrongSupportLow_LOD1
+    400010: Medieval_Masonary_WoodLarge_Wall
+    400012: Medieval_Masonary_WoodLarge_Wall_LOD1
+    400014: Medieval_Masonary_WoodLarge_Wall_LOD2
+    400016: Medieval_Masonary_WoodLarge_WallHalf
+    400018: Medieval_Masonary_WoodLarge_WallHalf_LOD1
+    400020: Medieval_Masonary_WoodLarge_WallHalf_LOD2
+    400022: Medieval_Masonary_WoodLarge_WallLow
+    400024: Medieval_Masonary_WoodLarge_WallLow_LOD1
+    400026: Medieval_Masonary_WoodLarge_WallLower
+    400028: Medieval_Masonary_WoodLarge_WallLower_LOD1
+    400030: Medieval_Masonary_WoodLarge_WallWindows
+    400032: Medieval_Masonary_WoodLarge_WallWindows_LOD1
+    400034: Medieval_Masonary_WoodLargeWall_Corner
+    400036: Medieval_Masonary_WoodLargeWall_Corner_LOD1
+    400038: Medieval_Masonary_WoodLargeWall_CornerLow
+    400040: Medieval_Masonary_WoodLargeWall_CornerLow_LOD1
+    400042: Medieval_Masonary_WoodLargeWall_CornerLower
+    400044: Medieval_Masonary_WoodLargeWall_CornerLower_LOD1
+    400046: Medieval_Masonary_WoodLargeWall_Curved
+    400048: //RootNode
+    2300000: Medieval_Masonary_WoodLarge_Curved_LOD1
+    2300002: Medieval_Masonary_WoodLarge_StrongSupportColumn
+    2300004: Medieval_Masonary_WoodLarge_StrongSupportColumn_LOD1
+    2300006: Medieval_Masonary_WoodLarge_StrongSupportLow
+    2300008: Medieval_Masonary_WoodLarge_StrongSupportLow_LOD1
+    2300010: Medieval_Masonary_WoodLarge_Wall
+    2300012: Medieval_Masonary_WoodLarge_Wall_LOD1
+    2300014: Medieval_Masonary_WoodLarge_Wall_LOD2
+    2300016: Medieval_Masonary_WoodLarge_WallHalf
+    2300018: Medieval_Masonary_WoodLarge_WallHalf_LOD1
+    2300020: Medieval_Masonary_WoodLarge_WallHalf_LOD2
+    2300022: Medieval_Masonary_WoodLarge_WallLow
+    2300024: Medieval_Masonary_WoodLarge_WallLow_LOD1
+    2300026: Medieval_Masonary_WoodLarge_WallLower
+    2300028: Medieval_Masonary_WoodLarge_WallLower_LOD1
+    2300030: Medieval_Masonary_WoodLarge_WallWindows
+    2300032: Medieval_Masonary_WoodLarge_WallWindows_LOD1
+    2300034: Medieval_Masonary_WoodLargeWall_Corner
+    2300036: Medieval_Masonary_WoodLargeWall_Corner_LOD1
+    2300038: Medieval_Masonary_WoodLargeWall_CornerLow
+    2300040: Medieval_Masonary_WoodLargeWall_CornerLow_LOD1
+    2300042: Medieval_Masonary_WoodLargeWall_CornerLower
+    2300044: Medieval_Masonary_WoodLargeWall_CornerLower_LOD1
+    2300046: Medieval_Masonary_WoodLargeWall_Curved
+    3300000: Medieval_Masonary_WoodLarge_Curved_LOD1
+    3300002: Medieval_Masonary_WoodLarge_StrongSupportColumn
+    3300004: Medieval_Masonary_WoodLarge_StrongSupportColumn_LOD1
+    3300006: Medieval_Masonary_WoodLarge_StrongSupportLow
+    3300008: Medieval_Masonary_WoodLarge_StrongSupportLow_LOD1
+    3300010: Medieval_Masonary_WoodLarge_Wall
+    3300012: Medieval_Masonary_WoodLarge_Wall_LOD1
+    3300014: Medieval_Masonary_WoodLarge_Wall_LOD2
+    3300016: Medieval_Masonary_WoodLarge_WallHalf
+    3300018: Medieval_Masonary_WoodLarge_WallHalf_LOD1
+    3300020: Medieval_Masonary_WoodLarge_WallHalf_LOD2
+    3300022: Medieval_Masonary_WoodLarge_WallLow
+    3300024: Medieval_Masonary_WoodLarge_WallLow_LOD1
+    3300026: Medieval_Masonary_WoodLarge_WallLower
+    3300028: Medieval_Masonary_WoodLarge_WallLower_LOD1
+    3300030: Medieval_Masonary_WoodLarge_WallWindows
+    3300032: Medieval_Masonary_WoodLarge_WallWindows_LOD1
+    3300034: Medieval_Masonary_WoodLargeWall_Corner
+    3300036: Medieval_Masonary_WoodLargeWall_Corner_LOD1
+    3300038: Medieval_Masonary_WoodLargeWall_CornerLow
+    3300040: Medieval_Masonary_WoodLargeWall_CornerLow_LOD1
+    3300042: Medieval_Masonary_WoodLargeWall_CornerLower
+    3300044: Medieval_Masonary_WoodLargeWall_CornerLower_LOD1
+    3300046: Medieval_Masonary_WoodLargeWall_Curved
+    4300000: Medieval_Masonary_WoodLarge_Wall
+    4300002: Medieval_Masonary_WoodLarge_Wall_LOD2
+    4300004: Medieval_Masonary_WoodLarge_Wall_LOD1
+    4300006: Medieval_Masonary_WoodLarge_StrongSupportColumn
+    4300008: Medieval_Masonary_WoodLarge_StrongSupportColumn_LOD1
+    4300010: Medieval_Masonary_WoodLargeWall_Corner
+    4300012: Medieval_Masonary_WoodLargeWall_Corner_LOD1
+    4300014: Medieval_Masonary_WoodLargeWall_Curved
+    4300016: Medieval_Masonary_WoodLarge_Curved_LOD1
+    4300018: Medieval_Masonary_WoodLarge_WallHalf
+    4300020: Medieval_Masonary_WoodLarge_WallHalf_LOD2
+    4300022: Medieval_Masonary_WoodLarge_WallHalf_LOD1
+    4300024: Medieval_Masonary_WoodLarge_WallWindows
+    4300026: Medieval_Masonary_WoodLarge_WallWindows_LOD1
+    4300028: Medieval_Masonary_WoodLargeWall_CornerLow
+    4300030: Medieval_Masonary_WoodLargeWall_CornerLow_LOD1
+    4300032: Medieval_Masonary_WoodLargeWall_CornerLower
+    4300034: Medieval_Masonary_WoodLargeWall_CornerLower_LOD1
+    4300036: Medieval_Masonary_WoodLarge_WallLower
+    4300038: Medieval_Masonary_WoodLarge_WallLower_LOD1
+    4300040: Medieval_Masonary_WoodLarge_StrongSupportLow
+    4300042: Medieval_Masonary_WoodLarge_StrongSupportLow_LOD1
+    4300044: Medieval_Masonary_WoodLarge_WallLow
+    4300046: Medieval_Masonary_WoodLarge_WallLow_LOD1
+    2186277476908879412: ImportLogs
+  externalObjects: {}
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
