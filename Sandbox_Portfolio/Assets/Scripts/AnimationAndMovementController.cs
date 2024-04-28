@@ -167,8 +167,8 @@ public class AnimationAndMovementController : MonoBehaviour
         Vector2 isoMovementInput = RotateInput(currentMovementInput, -45);
         currentMovement.x = isoMovementInput.x;
         currentMovement.z = isoMovementInput.y;
-        currentRunMovement.x = isoMovementInput.x * runMultiplier;
-        currentRunMovement.z = isoMovementInput.y * runMultiplier;
+        currentRunMovement.x = isoMovementInput.x * RunMultiplier;
+        currentRunMovement.z = isoMovementInput.y * RunMultiplier;
         isMovementPressed = currentMovementInput.x != 0 || currentMovementInput.y != 0;
     }
     
