@@ -11,6 +11,7 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] GameObject GM;
     [SerializeField] Animator playerAnimator;
     [SerializeField] Animator camAnimator;
+    [SerializeField] CanvasGroup canvasGroup;
     private GameObject floor;
     private ColorAdjustments colorAdjustments;
     private bool selectedStart = false;
@@ -63,7 +64,25 @@ public class MainMenuManager : MonoBehaviour
         playerAnimator.SetBool(isDed, true);
         camAnimator.SetBool(camMove, true);
         selectedStart = true;
+        StartCoroutine(FadeCanvasGroup());
         StartCoroutine(launchGame());
+    }
+    private IEnumerator FadeCanvasGroup()
+    {
+        float timeStartedLerping = Time.time;
+        float timeSinceStarted = 0f;
+        float percentageComplete = 0f;
+
+        while (percentageComplete < 1)
+        {
+            timeSinceStarted = Time.time - timeStartedLerping;
+            percentageComplete = timeSinceStarted / 1;
+            float currentValue = Mathf.Lerp(1, 0, percentageComplete);
+
+            canvasGroup.alpha = currentValue;
+
+            yield return new WaitForEndOfFrame();
+        }
     }
 
     IEnumerator launchGame()
