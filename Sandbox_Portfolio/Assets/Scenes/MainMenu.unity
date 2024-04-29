@@ -6412,10 +6412,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1320922580}
-        m_TargetAssemblyTypeName: SceneSwitch, Assembly-CSharp
-        m_MethodName: SwitchScene
-        m_Mode: 3
+      - m_Target: {fileID: 1231478000}
+        m_TargetAssemblyTypeName: MainMenuManager, Assembly-CSharp
+        m_MethodName: startTheGame
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -8729,6 +8729,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   volume: {fileID: 346840072}
   duration: 20
+  GM: {fileID: 1320922579}
+  playerAnimator: {fileID: 1417483064}
+  camAnimator: {fileID: 1937739592}
 --- !u!1001 &1236973375
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10046,6 +10049,11 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 4c7fe8e1a3919c549a79a706afefd1ce, type: 2}
+    - target: {fileID: 8493691934491296033, guid: e65974a4e6e57e44286f1b5dfa48cb8c,
+        type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4786877680740789248, guid: e65974a4e6e57e44286f1b5dfa48cb8c, type: 3}
     m_RemovedGameObjects: []
@@ -10287,6 +10295,12 @@ Transform:
   - {fileID: 367656803}
   m_Father: {fileID: 1231477999}
   m_LocalEulerAnglesHint: {x: 0, y: 68.427, z: 0}
+--- !u!95 &1417483064 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 8493691934491296033, guid: e65974a4e6e57e44286f1b5dfa48cb8c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1383931787}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1445576309 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8890356699427785745, guid: d5b8de414112a004a82d0437b5f7a780,
@@ -14428,6 +14442,7 @@ GameObject:
   - component: {fileID: 1937739587}
   - component: {fileID: 1937739590}
   - component: {fileID: 1937739591}
+  - component: {fileID: 1937739592}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -14651,6 +14666,27 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &1937739592
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1937739586}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b3dc60410795cad4bbab4719a7664934, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &1962247617
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16268,16 +16304,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1088923659}
     m_Modifications:
-    - target: {fileID: 863090063653613796, guid: f3328231933a8864ead53fef15e536b9,
-        type: 3}
-      propertyPath: lengthInSec
-      value: 10.15
-      objectReference: {fileID: 0}
-    - target: {fileID: 863090063653613796, guid: f3328231933a8864ead53fef15e536b9,
-        type: 3}
-      propertyPath: startDelay.scalar
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 1894300881694829664, guid: f3328231933a8864ead53fef15e536b9,
         type: 3}
       propertyPath: m_Name
@@ -16291,7 +16317,7 @@ PrefabInstance:
     - target: {fileID: 2703206096459417998, guid: f3328231933a8864ead53fef15e536b9,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.58
+      value: 2.17
       objectReference: {fileID: 0}
     - target: {fileID: 2703206096459417998, guid: f3328231933a8864ead53fef15e536b9,
         type: 3}
