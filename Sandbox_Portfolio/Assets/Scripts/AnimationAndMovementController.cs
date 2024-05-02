@@ -26,8 +26,14 @@ public class AnimationAndMovementController : MonoBehaviour
 
     // * ########## Constants movement ########## * //
     float rotationFactorPerFrame = 15.0f;
-    float dashTime = 0.1f;
-    float speed = 4.5f;
+    float normalSpeed = 4.5f;
+    float dashSpeed = 30.5f;
+    float dashDuration = 1f;
+    float dashCooldown = 2f;
+    float dashTimeLeft = 0;
+    float dashCooldownLeft = 0;
+    float speed;
+
     // int zero = 0;
     
     // * ########## Gravity ########## * //
@@ -127,7 +133,12 @@ public class AnimationAndMovementController : MonoBehaviour
 
     void onDash (InputAction.CallbackContext context)
     {
-        isDashPressed = context.ReadValueAsButton();
+        if(context.phase == InputActionPhase.Performed && dashCooldownLeft <= 0)
+        {
+            isDashPressed = true;
+            dashTimeLeft = dashDuration;
+            dashCooldownLeft = dashCooldown;
+        }
     }
     void handleRotation()
     {
@@ -165,14 +176,7 @@ public class AnimationAndMovementController : MonoBehaviour
     {
         currentMovementInput = context.ReadValue<Vector2>();
         Vector2 isoMovementInput = RotateInput(currentMovementInput, -45);
-        if (isDashPressed)
-        {
-            speed = 30.5f;
-        }
-        else
-        {
-            speed = 4.5f;
-        }
+        speed = isDashPressed && dashTimeLeft > 0 ? dashSpeed : normalSpeed;
         currentMovement.x = isoMovementInput.x * speed;
         currentMovement.z = isoMovementInput.y * speed;
         isMovementPressed = currentMovementInput.x != 0 || currentMovementInput.y != 0;
@@ -238,11 +242,21 @@ public class AnimationAndMovementController : MonoBehaviour
     //         currentMovement.y = currentMovement.y + (jumpGravities[jumpCount] * Time.deltaTime);
     //         appliedMovement.y = (previousYVelocity + currentMovement.y) * .5f;
     //     }
-
-    // }
-    // * Update is called once per frame
     void Update()
     {
+        if (dashCooldownLeft > 0)
+        {
+            dashCooldownLeft -= Time.deltaTime;
+        }
+
+        if (dashTimeLeft > 0)
+        {
+            dashTimeLeft -= Time.deltaTime;
+            if (dashTimeLeft <= 0)
+            {
+                isDashPressed = false;  // Reset dash press
+            }
+        }
         handleRotation();
         handleAnimation();
         appliedMovement.x = currentMovement.x;
