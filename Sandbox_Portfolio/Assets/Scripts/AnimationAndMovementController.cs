@@ -27,7 +27,7 @@ public class AnimationAndMovementController : MonoBehaviour
 
     // * ########## Constants movement ########## * //
     float rotationFactorPerFrame = 15.0f;
-    float RunMultiplier = 4.5f;
+    float RunMultiplier = 5.5f;
     int zero = 0;
     
     // * ########## Gravity ########## * //
@@ -62,8 +62,8 @@ public class AnimationAndMovementController : MonoBehaviour
         playerInput.CharacterControls.Move.performed += onMovementInput;
         playerInput.CharacterControls.Run.started += onRun;
         playerInput.CharacterControls.Run.canceled += onRun;
-        playerInput.CharacterControls.Jump.started += onJump;
-        playerInput.CharacterControls.Jump.canceled += onJump;
+        // playerInput.CharacterControls.Jump.started += onJump;
+        // playerInput.CharacterControls.Jump.canceled += onJump;
 
         setupJumpVariables();
     }
@@ -165,8 +165,8 @@ public class AnimationAndMovementController : MonoBehaviour
     {
         currentMovementInput = context.ReadValue<Vector2>();
         Vector2 isoMovementInput = RotateInput(currentMovementInput, -45);
-        currentMovement.x = isoMovementInput.x;
-        currentMovement.z = isoMovementInput.y;
+        currentMovement.x = isoMovementInput.x * 4.5f;
+        currentMovement.z = isoMovementInput.y * 4.5f;
         currentRunMovement.x = isoMovementInput.x * RunMultiplier;
         currentRunMovement.z = isoMovementInput.y * RunMultiplier;
         isMovementPressed = currentMovementInput.x != 0 || currentMovementInput.y != 0;
