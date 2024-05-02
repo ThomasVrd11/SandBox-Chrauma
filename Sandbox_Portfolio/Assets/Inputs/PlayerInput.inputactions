@@ -15,9 +15,9 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Run",
+                    "name": "Dash",
                     "type": "Button",
-                    "id": "0cf8a2e7-e005-4347-8672-ff8b318e43be",
+                    "id": "a48c65be-a10e-4cae-ba97-cb0568e58456",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -25,17 +25,6 @@
                 }
             ],
             "bindings": [
-                {
-                    "name": "",
-                    "id": "50db79cd-0617-4e5c-8b8a-f801c7009a3e",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
                 {
                     "name": "2D Vector",
                     "id": "11ccc4a5-3690-4075-818c-8fec4fdbd8c7",
@@ -93,12 +82,12 @@
                 },
                 {
                     "name": "",
-                    "id": "772f82d3-b11e-4628-bc5c-85a666478bcc",
-                    "path": "<Keyboard>/leftShift",
+                    "id": "4a334939-0c67-42cf-b9b0-6e0ee6b1ae74",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Run",
+                    "action": "Dash",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
