@@ -25,7 +25,7 @@ public class AnimationAndMovementController : MonoBehaviour
     float normalSpeed = 4.5f;
     public float dashSpeed = 100f;
     public float dashDuration = 0.05f;
-    float dashCooldown = 2f;
+    float dashCooldown = 1.5f;
     float dashTimeLeft = 0;
     float dashCooldownLeft = 0;
     float speed = 4.5f;
