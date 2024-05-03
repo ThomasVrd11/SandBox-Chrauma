@@ -1,4 +1,3 @@
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,9 +12,6 @@ public class AnimationAndMovementController : MonoBehaviour
 
     // * ########## Hashes ########## * //
     int isWalkingHash;
-    // int isRunningHash;
-    // int isJumpingHash;
-    // int jumpCountHash;
 
     // * ########## Input Values ########## * //
     Vector2 currentMovementInput;
@@ -32,25 +28,7 @@ public class AnimationAndMovementController : MonoBehaviour
     float dashCooldown = 2f;
     float dashTimeLeft = 0;
     float dashCooldownLeft = 0;
-    float speed;
-
-    // int zero = 0;
-    
-    // * ########## Gravity ########## * //
-    // float gravity = -9.8f;
-    // float groundedGravity = -.05f;
-
-    // * ########## Jumping ########## * //
-    // bool isJumpPressed = false;
-    // float initialJumpVelocity;
-    // float maxJumpHeight = 3.0f;
-    // float maxJumpTime = 0.75f;
-    // bool isJumping = false;
-    // bool isJumpAnimating = false;
-    // int jumpCount = 0;
-    // Dictionary<int, float> initialJumpVelocities = new Dictionary<int, float>();
-    // Dictionary<int, float> jumpGravities = new Dictionary<int, float>();
-    // Coroutine currentJumpResetRoutine = null;
+    float speed = 4.5f;
 
     void Awake()
     {
@@ -59,87 +37,66 @@ public class AnimationAndMovementController : MonoBehaviour
         animator = GetComponent<Animator>();
 
         isWalkingHash = Animator.StringToHash("isWalking");
-        // isRunningHash = Animator.StringToHash("isRunning");
-        // isJumpingHash = Animator.StringToHash("isJumping");
-        // jumpCountHash = Animator.StringToHash("jumpCount");
 
         playerInput.CharacterControls.Move.started += onMovementInput;
         playerInput.CharacterControls.Move.canceled += onMovementInput;
         playerInput.CharacterControls.Move.performed += onMovementInput;
         playerInput.CharacterControls.Dash.performed += onDash;
-        
-        // playerInput.CharacterControls.Jump.started += onJump;
-        // playerInput.CharacterControls.Jump.canceled += onJump;
-        // setupJumpVariables();
+
     }
 
-    // void setupJumpVariables()
-    // {
-    //     // * calculating the initial jump velocity and gravity
-    //     float timeToApex = maxJumpTime / 2;
-    //     gravity = (-2 * maxJumpHeight) / Mathf.Pow(timeToApex, 2);
-    //     initialJumpVelocity = (2 * maxJumpHeight) / timeToApex;
-    //     float secondJumpGravity = (-2 * (maxJumpHeight + 2)) / Mathf.Pow((timeToApex * 1.25f), 2);
-    //     float secondJumpInitialVelocity = (2 * (maxJumpHeight + 2)) / (timeToApex * 1.25f);
-    //     float thirdJumpGravity = (-2 * (maxJumpHeight + 4)) / Mathf.Pow((timeToApex * 1.5f), 2);
-    //     float thirdJumpInitialVelocity = (2 * (maxJumpHeight + 4)) / (timeToApex * 1.5f);
-
-    //     initialJumpVelocities.Add(1, initialJumpVelocity);
-    //     initialJumpVelocities.Add(2, secondJumpInitialVelocity);
-    //     initialJumpVelocities.Add(3, thirdJumpInitialVelocity);
-
-    //     jumpGravities.Add(0, gravity);      // * when jump counts resets
-    //     jumpGravities.Add(1, gravity);
-    //     jumpGravities.Add(2, secondJumpGravity);
-    //     jumpGravities.Add(3, thirdJumpGravity);
-    // }
-
-    // void handleJump()
-    // {
-    //     if (!isJumping && characterController.isGrounded && isJumpPressed)
-    //     {
-    //         if (jumpCount < 3 && currentJumpResetRoutine != null)
-    //         {
-    //             StopCoroutine(currentJumpResetRoutine);
-    //         }
-    //         animator.SetBool(isJumpingHash, true);
-    //         isJumpAnimating = true;
-    //         isJumping = true;
-    //         jumpCount += 1;
-    //         animator.SetInteger(jumpCountHash, jumpCount);
-    //         currentMovement.y = initialJumpVelocities[jumpCount];
-    //         appliedMovement.y = initialJumpVelocities[jumpCount];
-    //     }
-    //     else if (!isJumpPressed && isJumping && characterController.isGrounded)
-    //     {
-    //         isJumping = false;
-    //     }
-    // }
-
-    // // * Co Routine for handling jump
-    // IEnumerator jumpResetRoutine()
-    // {
-    //     yield return new WaitForSeconds(0.5f);
-    //     jumpCount = 0;
-    // }
-
-
-    // void onJump (InputAction.CallbackContext context)
-    // {
-    //     isJumpPressed = context.ReadValueAsButton();
-
-    // }
-
-
-    void onDash (InputAction.CallbackContext context)
+    void Update()
     {
-        if(context.phase == InputActionPhase.Performed && dashCooldownLeft <= 0)
+        if (dashCooldownLeft > 0)
+        {
+            dashCooldownLeft -= Time.deltaTime;
+        }
+
+        if (dashTimeLeft > 0)
+        {
+            dashTimeLeft -= Time.deltaTime;
+            if (dashTimeLeft <= 0)
+            {
+                Debug.Log("end Dash");
+                isDashPressed = false;  // * Reset dash press
+                speed = normalSpeed;
+                HandleMovement();
+            }
+        }
+        handleRotation();
+        handleAnimation();
+        appliedMovement.x = currentMovement.x;
+        appliedMovement.z = currentMovement.z;
+
+        characterController.Move(appliedMovement * Time.deltaTime);
+    }
+
+    void onDash(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Performed && dashCooldownLeft <= 0)
         {
             isDashPressed = true;
             dashTimeLeft = dashDuration;
             dashCooldownLeft = dashCooldown;
+            speed = dashSpeed;
+            HandleMovement();
+            Debug.Log("Deja vu!");
         }
     }
+    void onMovementInput(InputAction.CallbackContext context)
+    {
+        currentMovementInput = context.ReadValue<Vector2>();
+        HandleMovement();
+    }
+
+    private void HandleMovement()
+    {
+        Vector2 isoMovementInput = RotateInput(currentMovementInput, -45);
+        currentMovement.x = isoMovementInput.x * speed;
+        currentMovement.z = isoMovementInput.y * speed;
+        isMovementPressed = currentMovementInput.x != 0 || currentMovementInput.y != 0;
+    }
+
     void handleRotation()
     {
         Vector3 positionToLookAt;
@@ -155,9 +112,10 @@ public class AnimationAndMovementController : MonoBehaviour
             Quaternion targetRotation = Quaternion.LookRotation(positionToLookAt);
             // * the rotation we want to have
             transform.rotation = Quaternion.Slerp(currentRotation, targetRotation, rotationFactorPerFrame * Time.deltaTime);
-            
+
         }
     }
+
     Vector2 RotateInput(Vector2 input, float degrees)
     {
         float radians = degrees * Mathf.Deg2Rad;
@@ -172,23 +130,10 @@ public class AnimationAndMovementController : MonoBehaviour
         return input;
     }
 
-        void onMovementInput(InputAction.CallbackContext context)
-    {
-        currentMovementInput = context.ReadValue<Vector2>();
-        Vector2 isoMovementInput = RotateInput(currentMovementInput, -45);
-        speed = isDashPressed && dashTimeLeft > 0 ? dashSpeed : normalSpeed;
-        currentMovement.x = isoMovementInput.x * speed;
-        currentMovement.z = isoMovementInput.y * speed;
-        isMovementPressed = currentMovementInput.x != 0 || currentMovementInput.y != 0;
-        
-        
-    }
-    
+
     void handleAnimation()
     {
         bool isWalking = animator.GetBool(isWalkingHash);
-        // bool isRunning = animator.GetBool(isRunningHash);
-        // bool isJumping = animator.GetBool(isJumpingHash);
 
         if (isMovementPressed && !isWalking)
         {
@@ -198,76 +143,6 @@ public class AnimationAndMovementController : MonoBehaviour
         {
             animator.SetBool(isWalkingHash, false);
         }
-
-        // if (isRunPressed && isMovementPressed && !isRunning)
-        // {
-        //     animator.SetBool(isRunningHash, true);
-        // }
-        // else if ((!isMovementPressed || !isRunPressed) && isRunning)
-        // {
-        //     animator.SetBool(isRunningHash, false);
-        // }
-    }
-
-    // void handleGravity()
-    // {
-    //     bool isFalling = currentMovement.y <= 0.0f || !isJumpPressed;
-    //     float fallMultiplier = 2.0f;
-
-    //     if (characterController.isGrounded)
-    //     {
-    //         if (isJumpAnimating)
-    //         {
-    //             animator.SetBool(isJumpingHash, false);
-    //             isJumpAnimating = false;
-    //             currentJumpResetRoutine = StartCoroutine(jumpResetRoutine());
-    //             if (jumpCount == 3)
-    //             {
-    //                 jumpCount = 0;
-    //                 animator.SetInteger(jumpCountHash, jumpCount);
-    //             }
-    //         }
-    //         currentMovement.y = groundedGravity;
-    //         appliedMovement.y = groundedGravity;
-    //     } 
-    //     else if (isFalling)
-    //     {
-    //         float previousYVelocity = currentMovement.y;
-    //         currentMovement.y = currentMovement.y + (jumpGravities[jumpCount] * fallMultiplier * Time.deltaTime);
-    //         appliedMovement.y = Mathf.Max((previousYVelocity + currentMovement.y) * .5f, -20.0f);
-    //     }
-    //     else
-    //     {
-    //         float previousYVelocity = currentMovement.y;
-    //         currentMovement.y = currentMovement.y + (jumpGravities[jumpCount] * Time.deltaTime);
-    //         appliedMovement.y = (previousYVelocity + currentMovement.y) * .5f;
-    //     }
-    void Update()
-    {
-        if (dashCooldownLeft > 0)
-        {
-            dashCooldownLeft -= Time.deltaTime;
-        }
-
-        if (dashTimeLeft > 0)
-        {
-            dashTimeLeft -= Time.deltaTime;
-            if (dashTimeLeft <= 0)
-            {
-                isDashPressed = false;  // Reset dash press
-            }
-        }
-        handleRotation();
-        handleAnimation();
-        appliedMovement.x = currentMovement.x;
-        appliedMovement.z = currentMovement.z;
-
-        characterController.Move(appliedMovement * Time.deltaTime);
-
-        //  calling handler after currentMovement is updated because we need to update the y value of currentMovement to
-        //  know what gravity variable is to be applied
-        // handleGravity();
-        // handleJump();
     }
 
     void OnEnable()
