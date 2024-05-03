@@ -23,8 +23,8 @@ public class AnimationAndMovementController : MonoBehaviour
     // * ########## Constants movement ########## * //
     float rotationFactorPerFrame = 15.0f;
     float normalSpeed = 4.5f;
-    float dashSpeed = 30.5f;
-    float dashDuration = 1f;
+    public float dashSpeed = 100f;
+    public float dashDuration = 0.05f;
     float dashCooldown = 2f;
     float dashTimeLeft = 0;
     float dashCooldownLeft = 0;
@@ -57,7 +57,6 @@ public class AnimationAndMovementController : MonoBehaviour
             dashTimeLeft -= Time.deltaTime;
             if (dashTimeLeft <= 0)
             {
-                Debug.Log("end Dash");
                 isDashPressed = false;  // * Reset dash press
                 speed = normalSpeed;
                 HandleMovement();
@@ -80,7 +79,6 @@ public class AnimationAndMovementController : MonoBehaviour
             dashCooldownLeft = dashCooldown;
             speed = dashSpeed;
             HandleMovement();
-            Debug.Log("Deja vu!");
         }
     }
     void onMovementInput(InputAction.CallbackContext context)
