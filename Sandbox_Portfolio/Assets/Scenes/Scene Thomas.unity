@@ -6544,7 +6544,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 100
   m_WholeNumbers: 0
-  m_Value: 5
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -6560,6 +6560,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bf9f1b3deac643f085fe73fa0cbfaeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthSlider: {fileID: 1990462726}
+  maxHealth: 100
+  health: 0.07
 --- !u!1 &1999957268
 GameObject:
   m_ObjectHideFlags: 0

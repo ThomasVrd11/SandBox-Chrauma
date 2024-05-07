@@ -7,7 +7,7 @@ public class HealthBar : MonoBehaviour
 {
 
     public Slider healthSlider;
-    [SerializeField] public float maxHealth = 100;
+    [SerializeField] public float maxHealth = 100f;
     [SerializeField] public float health;
 
     void Start()
