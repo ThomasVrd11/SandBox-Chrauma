@@ -48,7 +48,7 @@ public class EnemyAIMelee : MonoBehaviour
 
         Vector3 distanceToWalkPoint = transform.position - walkPoint;
         // * assez proche ??
-        if (distanceToWalkPoint.magnitude < 1f)
+        if (distanceToWalkPoint.magnitude < 1)
             walkPointSet = false;
     }
 
