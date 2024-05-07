@@ -28,11 +28,6 @@ private bool isWalking = false;
 		else{
 			isWalking = false;
 		}
-		Debug.Log("ParPos: " + parent.position);
-		Debug.Log("OldPos: " + oldPosition);
-		
-
-		
 
         animator.SetBool("isWalking", isWalking);
         animator.SetBool("isIdle", !isWalking);
