@@ -71,12 +71,12 @@ public class EnemyAIMelee : MonoBehaviour
     private void AttackPlayer()
     {
         agent.SetDestination(transform.position);
-        transform.LookAt(player);
+        //transform.LookAt(player);
         
         if (!alreadyAttacked)
         {
             // * attack ici
-            Debug.Log("Melee attack!");
+            //Debug.Log("Melee attack!");
             
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);

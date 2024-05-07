@@ -6,16 +6,33 @@ public class EnemyAnimator : MonoBehaviour
 {
 private Animator animator;
 private Rigidbody rb;
+private Transform parent;
+private Vector3 oldPosition;
+private bool isWalking = false;
 
     void Start()
     {
         animator = GetComponent<Animator>();
-        rb = GetComponent<Rigidbody>();
+		parent = gameObject.transform.parent;
+		oldPosition = parent.position;
+        //rb = parent.GetComponent<Rigidbody>();
     }
 
     void Update()
     {
-        bool isWalking = Mathf.Abs(rb.velocity.magnitude) > 0.1f;
+		if(parent.position != oldPosition)
+		{
+			isWalking = true;
+			oldPosition = parent.position;
+		}
+		else{
+			isWalking = false;
+		}
+		Debug.Log("ParPos: " + parent.position);
+		Debug.Log("OldPos: " + oldPosition);
+		
+
+		
 
         animator.SetBool("isWalking", isWalking);
         animator.SetBool("isIdle", !isWalking);
