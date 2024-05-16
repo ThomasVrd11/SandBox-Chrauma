@@ -22,6 +22,7 @@ public class EnemyAIMelee : MonoBehaviour
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
 	EnemyAnimator enemyAnimator;
+	PlayerStats playerStats;
 
     private void Awake()
     {
@@ -30,6 +31,11 @@ public class EnemyAIMelee : MonoBehaviour
 		enemyAnimator = GetComponentInChildren<EnemyAnimator>();
 		timeBetweenAttacks = 1.0f;
     }
+
+	private void Start()
+	{
+		playerStats = player.GetComponent<PlayerStats>();
+	}
 
     private void Update()
     {
@@ -88,6 +94,10 @@ public class EnemyAIMelee : MonoBehaviour
 
     private void ResetAttack()
     {
+		if (playerInAttackRange)
+		{
+			playerStats.TakeDamage(10);
+		}
         enemyAnimator.stopAttackAnimation();
         alreadyAttacked = false;
     }
