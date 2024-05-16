@@ -13,6 +13,7 @@ public class AnimationAndMovementController : MonoBehaviour
     // * ########## Hashes ########## * //
     int isWalkingHash;
     int berserkTriggerHash;
+    int skillTriggerHash;
 
     // * ########## Input Values ########## * //
     Vector2 currentMovementInput;
@@ -45,12 +46,14 @@ public class AnimationAndMovementController : MonoBehaviour
 
         isWalkingHash = Animator.StringToHash("isWalking");
         berserkTriggerHash = Animator.StringToHash("Berserk");
+        skillTriggerHash = Animator.StringToHash("Skill");
 
         playerInput.CharacterControls.Move.started += onMovementInput;
         playerInput.CharacterControls.Move.canceled += onMovementInput;
         playerInput.CharacterControls.Move.performed += onMovementInput;
         playerInput.CharacterControls.Dash.performed += onDash;
         playerInput.CharacterControls.Berserk.performed += onBerserk;
+        playerInput.CharacterControls.Skill.performed += onSkill;
     }
 
     void Update()
@@ -173,6 +176,14 @@ public class AnimationAndMovementController : MonoBehaviour
         speed = normalSpeed * 1.9f;
         animator.SetTrigger(berserkTriggerHash);
 
+    }
+
+    void onSkill(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Performed)
+        {
+            animator.SetTrigger(skillTriggerHash);
+        }
     }
 
     void DeactivateBerserk()
