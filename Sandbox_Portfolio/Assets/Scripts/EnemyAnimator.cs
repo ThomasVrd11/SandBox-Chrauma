@@ -32,4 +32,10 @@ private bool isWalking = false;
         animator.SetBool("isWalking", isWalking);
         animator.SetBool("isIdle", !isWalking);
     }
+	public void startAttackAnimation(){
+		animator.SetBool("isAttacking", true);
+	}	
+	public void stopAttackAnimation(){
+		animator.SetBool("isAttacking", false);
+	}
 }

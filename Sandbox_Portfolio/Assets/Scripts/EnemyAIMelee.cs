@@ -21,11 +21,14 @@ public class EnemyAIMelee : MonoBehaviour
     // * Detection ranges
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
+	EnemyAnimator enemyAnimator;
 
     private void Awake()
     {
         player = GameObject.Find("Player").transform;
         agent = GetComponent<NavMeshAgent>();
+		enemyAnimator = GetComponentInChildren<EnemyAnimator>();
+		timeBetweenAttacks = 1.0f;
     }
 
     private void Update()
@@ -76,8 +79,8 @@ public class EnemyAIMelee : MonoBehaviour
         if (!alreadyAttacked)
         {
             // * attack ici
-            //Debug.Log("Melee attack!");
-            
+            Debug.Log("Melee attack!");
+            enemyAnimator.startAttackAnimation();
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
         }
@@ -85,6 +88,7 @@ public class EnemyAIMelee : MonoBehaviour
 
     private void ResetAttack()
     {
+        enemyAnimator.stopAttackAnimation();
         alreadyAttacked = false;
     }
 
