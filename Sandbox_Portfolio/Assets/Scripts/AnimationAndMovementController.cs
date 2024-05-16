@@ -12,6 +12,7 @@ public class AnimationAndMovementController : MonoBehaviour
 
     // * ########## Hashes ########## * //
     int isWalkingHash;
+    int berserkTriggerHash;
 
     // * ########## Input Values ########## * //
     Vector2 currentMovementInput;
@@ -25,11 +26,17 @@ public class AnimationAndMovementController : MonoBehaviour
     float normalSpeed = 4.5f;
     public float dashSpeed = 100f;
     public float dashDuration = 0.05f;
-    float dashCooldown = 1.0f;
+    float dashCooldown = 1.5f;
     float dashTimeLeft = 0;
     float dashCooldownLeft = 0;
     float speed = 4.5f;
 
+    // * ########## Berserk ########## * //
+    public float berserkDuration = 10.0f;
+    private bool isBerserk = false;
+    private float berserkEndTime;
+
+    // * ########## Functions ########## * //
     void Awake()
     {
         playerInput = new PlayerInput();
@@ -37,12 +44,13 @@ public class AnimationAndMovementController : MonoBehaviour
         animator = GetComponent<Animator>();
 
         isWalkingHash = Animator.StringToHash("isWalking");
+        berserkTriggerHash = Animator.StringToHash("Berserk");
 
         playerInput.CharacterControls.Move.started += onMovementInput;
         playerInput.CharacterControls.Move.canceled += onMovementInput;
         playerInput.CharacterControls.Move.performed += onMovementInput;
         playerInput.CharacterControls.Dash.performed += onDash;
-
+        playerInput.CharacterControls.Berserk.performed += onBerserk;
     }
 
     void Update()
@@ -58,10 +66,16 @@ public class AnimationAndMovementController : MonoBehaviour
             if (dashTimeLeft <= 0)
             {
                 isDashPressed = false;  // * Reset dash press
-                speed = normalSpeed;
+                speed = isBerserk ? normalSpeed * 1.5f : normalSpeed;
                 HandleMovement();
             }
         }
+
+        if (isBerserk && Time.time > berserkEndTime)
+        {
+            DeactivateBerserk();
+        }
+
         handleRotation();
         handleAnimation();
         appliedMovement.x = currentMovement.x;
@@ -81,6 +95,7 @@ public class AnimationAndMovementController : MonoBehaviour
             HandleMovement();
         }
     }
+
     void onMovementInput(InputAction.CallbackContext context)
     {
         currentMovementInput = context.ReadValue<Vector2>();
@@ -110,7 +125,6 @@ public class AnimationAndMovementController : MonoBehaviour
             Quaternion targetRotation = Quaternion.LookRotation(positionToLookAt);
             // * the rotation we want to have
             transform.rotation = Quaternion.Slerp(currentRotation, targetRotation, rotationFactorPerFrame * Time.deltaTime);
-
         }
     }
 
@@ -128,7 +142,6 @@ public class AnimationAndMovementController : MonoBehaviour
         return input;
     }
 
-
     void handleAnimation()
     {
         bool isWalking = animator.GetBool(isWalkingHash);
@@ -141,6 +154,33 @@ public class AnimationAndMovementController : MonoBehaviour
         {
             animator.SetBool(isWalkingHash, false);
         }
+    }
+
+    void onBerserk(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Performed && !isBerserk)
+        {
+            ActivateBerserk();
+        }
+    }
+
+    void ActivateBerserk()
+    {
+        isBerserk = true;
+        berserkEndTime = Time.time + berserkDuration;
+
+        dashCooldown = 0.5f;
+        speed = normalSpeed * 1.9f;
+        animator.SetTrigger(berserkTriggerHash);
+
+    }
+
+    void DeactivateBerserk()
+    {
+        isBerserk = false;
+
+        dashCooldown = 1.5f;
+        speed = normalSpeed;
     }
 
     void OnEnable()
