@@ -4614,7 +4614,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef81bce0ad7edc149ab16e82374415e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxComboDelay: 0.7
+  maxComboDelay: 0.3
 --- !u!4 &1240889119 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8416442536746057027, guid: 4713189460b92ff4883381def154f15e,
@@ -6380,7 +6380,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 100
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 52
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -6397,7 +6397,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthSlider: {fileID: 1990462726}
-  maxHealth: 100.1
+  maxHealth: 99.3
   health: 0.07
 --- !u!1 &1999957268
 GameObject:

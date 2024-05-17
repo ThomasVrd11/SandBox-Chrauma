@@ -56,6 +56,7 @@ public class Combo : MonoBehaviour
     //     comboIndex = 0;
     //     hasAttacked = false;
     // }
+    
     public void ResetAttackAnimationEvent()
     {
         Debug.Log(continueCombo);
