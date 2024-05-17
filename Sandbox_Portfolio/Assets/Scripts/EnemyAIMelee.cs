@@ -45,7 +45,7 @@ public class EnemyAIMelee : MonoBehaviour
 
         
         if (!playerInSightRange && !playerInAttackRange) Patroling();
-        if (playerInSightRange && !playerInAttackRange) ChasePlayer();
+        if (playerInSightRange && !playerInAttackRange && !alreadyAttacked) ChasePlayer();
         if (playerInSightRange && playerInAttackRange) AttackPlayer();
     }
 

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1188571, g: 0.18339978, b: 0.3297099, a: 1}
+  m_IndirectSpecularColor: {r: 0.11884108, g: 0.18339348, b: 0.32976314, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -264,6 +264,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: DemonMelee (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 9054348878469416001, guid: 7c9c747f29ef84796a0e170b8c088bdf,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2299,6 +2304,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: DemonMelee
+      objectReference: {fileID: 0}
+    - target: {fileID: 9054348878469416001, guid: 7c9c747f29ef84796a0e170b8c088bdf,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4535,6 +4545,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1178706983}
+    - targetCorrespondingSourceObject: {fileID: 169722, guid: 6a39af6464d636c40849fac68033383c,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1178706985}
   m_SourcePrefab: {fileID: 100100000, guid: 6a39af6464d636c40849fac68033383c, type: 3}
 --- !u!1 &1178706973 stripped
 GameObject:
@@ -4615,6 +4629,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxComboDelay: 0.3
+--- !u!114 &1178706985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1178706973}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7aad31513d840bb4782aa428238f406b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  current_health: 0
+  current_entropy: 0
 --- !u!4 &1240889119 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8416442536746057027, guid: 4713189460b92ff4883381def154f15e,
@@ -7745,6 +7773,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Demon_default
+      objectReference: {fileID: 0}
+    - target: {fileID: 9054348878469416001, guid: 7c9c747f29ef84796a0e170b8c088bdf,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
