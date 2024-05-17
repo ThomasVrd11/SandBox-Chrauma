@@ -23,7 +23,7 @@ public class AnimationAndMovementController : MonoBehaviour
     Vector3 appliedMovement;
     bool isMovementPressed;
     bool isDashPressed;
-    bool skill1Pressed = false;  // Added to handle input
+    bool skill1Pressed = false;
 
     // * ########## Constants movement ########## * //
     float rotationFactorPerFrame = 15.0f;
@@ -49,6 +49,9 @@ public class AnimationAndMovementController : MonoBehaviour
     private int skill2Stage = 0;
     private int skill3Stage = 0;
     private float skillStageDuration = 1.5f;
+
+    // * ########## UI ELEMENTS ########## * //
+    public SkillCooldownUI berserkCooldownUI;
 
     // * ########## Functions ########## * //
     void Awake()
@@ -228,26 +231,31 @@ public class AnimationAndMovementController : MonoBehaviour
         dashCooldown = 0.5f;
         speed = normalSpeed * 1.9f;
         animator.SetTrigger(berserkTriggerHash);
+
+        if (berserkCooldownUI != null)
+        {
+            berserkCooldownUI.StartCooldown(berserkDuration);
+        }
     }
 
     void onSkill1(InputAction.CallbackContext context)
     {
         if (context.phase == InputActionPhase.Performed && !skill1Pressed)
         {
-            skill1Pressed = true; // Prevent repeated presses
-            skill1Stage = Mathf.Clamp(skill1Stage + 1, 1, 3); // Cap the skill stage to 3
+            skill1Pressed = true; 
+            skill1Stage = Mathf.Clamp(skill1Stage + 1, 1, 3);
             skill1TimeLeft = skillStageDuration;
             animator.SetTrigger(skill1TriggerHash);
             Debug.Log("Skill1 Stage: " + skill1Stage);
 
-            // Reset skill1Pressed after a short delay to handle cooldown between key presses
+            
             StartCoroutine(ResetSkill1Pressed());
         }
     }
 
     IEnumerator ResetSkill1Pressed()
     {
-        yield return new WaitForSeconds(0.1f); // Adjust this delay as needed
+        yield return new WaitForSeconds(0.4f);
         skill1Pressed = false;
     }
 
