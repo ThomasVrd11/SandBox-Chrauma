@@ -13,7 +13,9 @@ public class AnimationAndMovementController : MonoBehaviour
     // * ########## Hashes ########## * //
     int isWalkingHash;
     int berserkTriggerHash;
-    int skillTriggerHash;
+    int skill1TriggerHash;
+    int skill2TriggerHash;
+    int skill3TriggerHash;
 
     // * ########## Input Values ########## * //
     Vector2 currentMovementInput;
@@ -21,6 +23,7 @@ public class AnimationAndMovementController : MonoBehaviour
     Vector3 appliedMovement;
     bool isMovementPressed;
     bool isDashPressed;
+    bool skill1Pressed = false;  // Added to handle input
 
     // * ########## Constants movement ########## * //
     float rotationFactorPerFrame = 15.0f;
@@ -37,6 +40,16 @@ public class AnimationAndMovementController : MonoBehaviour
     private bool isBerserk = false;
     private float berserkEndTime;
 
+    // * ########## Skill Variables ########## * //
+    private float skill1TimeLeft = 0;
+    private float skill2TimeLeft = 0;
+    private float skill3TimeLeft = 0;
+    private float skillCooldown = 1.5f;
+    private int skill1Stage = 0;
+    private int skill2Stage = 0;
+    private int skill3Stage = 0;
+    private float skillStageDuration = 1.5f;
+
     // * ########## Functions ########## * //
     void Awake()
     {
@@ -46,14 +59,18 @@ public class AnimationAndMovementController : MonoBehaviour
 
         isWalkingHash = Animator.StringToHash("isWalking");
         berserkTriggerHash = Animator.StringToHash("Berserk");
-        skillTriggerHash = Animator.StringToHash("Skill");
+        skill1TriggerHash = Animator.StringToHash("Skill1Stage");
+        skill2TriggerHash = Animator.StringToHash("Skill2Stage");
+        skill3TriggerHash = Animator.StringToHash("Skill3Stage");
 
         playerInput.CharacterControls.Move.started += onMovementInput;
         playerInput.CharacterControls.Move.canceled += onMovementInput;
         playerInput.CharacterControls.Move.performed += onMovementInput;
         playerInput.CharacterControls.Dash.performed += onDash;
         playerInput.CharacterControls.Berserk.performed += onBerserk;
-        playerInput.CharacterControls.Skill.performed += onSkill;
+        playerInput.CharacterControls.Skill1.performed += onSkill1;
+        playerInput.CharacterControls.Skill2.performed += onSkill2;
+        playerInput.CharacterControls.Skill3.performed += onSkill3;
     }
 
     void Update()
@@ -79,12 +96,48 @@ public class AnimationAndMovementController : MonoBehaviour
             DeactivateBerserk();
         }
 
+        UpdateSkillTimers();
+
         handleRotation();
         handleAnimation();
         appliedMovement.x = currentMovement.x;
         appliedMovement.z = currentMovement.z;
 
         characterController.Move(appliedMovement * Time.deltaTime);
+    }
+
+    void UpdateSkillTimers()
+    {
+        if (skill1TimeLeft > 0)
+        {
+            skill1TimeLeft -= Time.deltaTime;
+            if (skill1TimeLeft <= 0)
+            {
+                skill1Stage = 0;
+                animator.ResetTrigger(skill1TriggerHash);
+                Debug.Log("Skill1 Timer Expired: Resetting to Stage 0");
+            }
+        }
+        if (skill2TimeLeft > 0)
+        {
+            skill2TimeLeft -= Time.deltaTime;
+            if (skill2TimeLeft <= 0)
+            {
+                skill2Stage = 0;
+                animator.ResetTrigger(skill2TriggerHash);
+                Debug.Log("Skill2 Timer Expired: Resetting to Stage 0");
+            }
+        }
+        if (skill3TimeLeft > 0)
+        {
+            skill3TimeLeft -= Time.deltaTime;
+            if (skill3TimeLeft <= 0)
+            {
+                skill3Stage = 0;
+                animator.ResetTrigger(skill3TriggerHash);
+                Debug.Log("Skill3 Timer Expired: Resetting to Stage 0");
+            }
+        }
     }
 
     void onDash(InputAction.CallbackContext context)
@@ -175,14 +228,48 @@ public class AnimationAndMovementController : MonoBehaviour
         dashCooldown = 0.5f;
         speed = normalSpeed * 1.9f;
         animator.SetTrigger(berserkTriggerHash);
-
     }
 
-    void onSkill(InputAction.CallbackContext context)
+    void onSkill1(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Performed && !skill1Pressed)
+        {
+            skill1Pressed = true; // Prevent repeated presses
+            skill1Stage = Mathf.Clamp(skill1Stage + 1, 1, 3); // Cap the skill stage to 3
+            skill1TimeLeft = skillStageDuration;
+            animator.SetTrigger(skill1TriggerHash);
+            Debug.Log("Skill1 Stage: " + skill1Stage);
+
+            // Reset skill1Pressed after a short delay to handle cooldown between key presses
+            StartCoroutine(ResetSkill1Pressed());
+        }
+    }
+
+    IEnumerator ResetSkill1Pressed()
+    {
+        yield return new WaitForSeconds(0.1f); // Adjust this delay as needed
+        skill1Pressed = false;
+    }
+
+    void onSkill2(InputAction.CallbackContext context)
     {
         if (context.phase == InputActionPhase.Performed)
         {
-            animator.SetTrigger(skillTriggerHash);
+            skill2Stage++;
+            skill2TimeLeft = skillStageDuration;
+            animator.SetTrigger(skill2TriggerHash);
+            Debug.Log("Skill2 Stage: " + skill2Stage);
+        }
+    }
+
+    void onSkill3(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Performed)
+        {
+            skill3Stage++;
+            skill3TimeLeft = skillStageDuration;
+            animator.SetTrigger(skill3TriggerHash);
+            Debug.Log("Skill3 Stage: " + skill3Stage);
         }
     }
 
