@@ -41,7 +41,6 @@ public class MainMenuManager : MonoBehaviour
         currentRotation.y += 4 * Time.deltaTime;
         mainCamera.transform.eulerAngles = currentRotation;
         playerPlate.transform.Rotate(new Vector3(0, 1, 0) * 4 * Time.deltaTime);
-        RenderSettings.skybox.SetFloat("_rotation", Time.time * 120f);
         }
     }
 

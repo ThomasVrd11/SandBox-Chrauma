@@ -10,13 +10,15 @@ public class DialogueManager : MonoBehaviour
     public Image characterIcon;
     public TextMeshProUGUI characterName;
     public TextMeshProUGUI dialogueArea;
+    public GameObject dialogueBox;
+    public GameObject VC1;
 
     private Queue<DialogueLine> lines;
     
     public bool isDialogueActive = false; 
     public float typingSpeed = 0.2f;
 
-    public Animator animator; 
+    //public Animator animator; 
     private void Awake()
     {
         if (Instance == null)
@@ -28,8 +30,10 @@ public class DialogueManager : MonoBehaviour
     {
         isDialogueActive = true;
 
-        animator.Play("show"); 
+        //animator.Play("show"); 
+        dialogueBox.SetActive(true);
         lines.Clear();
+        VC1.SetActive(false);
 
         foreach (DialogueLine dialogueLine in dialogue.dialogueLines)
         {
@@ -68,6 +72,8 @@ public class DialogueManager : MonoBehaviour
     void EndDialogue()
     {
         isDialogueActive = false;
-        animator.Play("hide");
+        dialogueBox.SetActive(false);
+        VC1.SetActive(true);
+        //animator.Play("hide");
     }
 }

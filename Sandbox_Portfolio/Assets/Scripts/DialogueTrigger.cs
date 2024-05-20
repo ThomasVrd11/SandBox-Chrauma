@@ -25,17 +25,25 @@ public class Dialogue
 public class DialogueTrigger : MonoBehaviour
 {
     public Dialogue dialogue;
+    public GameObject CameraDialogue;
 
     public void TriggerDialogue()
     {
         DialogueManager.Instance.StartDialogue(dialogue);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter(Collider collision)
     {
         if(collision.tag == "Player")
         {
             TriggerDialogue();
+        CameraDialogue.SetActive(true);
+        }
+    }
+    private void OnTriggerExit(Collider other) {
+        if(other.tag == "Player")
+        {
+        CameraDialogue.SetActive(false);
         }
     }
 }
