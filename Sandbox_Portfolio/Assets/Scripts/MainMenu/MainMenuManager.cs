@@ -7,9 +7,12 @@ using UnityEngine.Rendering.Universal;
 public class MainMenuManager : MonoBehaviour
 {
     [SerializeField] Volume volume;
-    [SerializeField]float duration = 5.0f;
+    [SerializeField] float duration = 5.0f;
     [SerializeField] GameObject GM;
     [SerializeField] Animator playerAnimator;
+    [SerializeField] GameObject playerPlate;
+    [SerializeField] GameObject mainCamera;
+    [SerializeField] GameObject cinematicCamera;
     [SerializeField] Animator camAnimator;
     [SerializeField] CanvasGroup canvasGroup;
     private GameObject floor;
@@ -33,7 +36,13 @@ public class MainMenuManager : MonoBehaviour
     void Update()
     {
         if (!selectedStart)
-            floor.transform.Rotate(new Vector3(0, -1, 0) * 4 * Time.deltaTime);
+        {
+        Vector3 currentRotation = mainCamera.transform.eulerAngles;
+        currentRotation.y += 4 * Time.deltaTime;
+        mainCamera.transform.eulerAngles = currentRotation;
+        playerPlate.transform.Rotate(new Vector3(0, 1, 0) * 4 * Time.deltaTime);
+        RenderSettings.skybox.SetFloat("_rotation", Time.time * 120f);
+        }
     }
 
     IEnumerator ChangeSaturation()
@@ -62,7 +71,9 @@ public class MainMenuManager : MonoBehaviour
         int isDed = Animator.StringToHash("isDed");
         int camMove = Animator.StringToHash("CamMove");
         playerAnimator.SetBool(isDed, true);
-        camAnimator.SetBool(camMove, true);
+        //camAnimator.SetBool(camMove, true);
+        mainCamera.SetActive(false);
+        cinematicCamera.SetActive(true);
         selectedStart = true;
         StartCoroutine(FadeCanvasGroup());
         StartCoroutine(launchGame());
