@@ -1,0 +1,2 @@
+Bone for spells hierarchy:
+mixamorig:Hips > mixamorig:Spine > mixamorig:Spine1 > mixamorig:Spine2 > mixamorig:RightShoulder > mixamorig:RightArm > mixamorig:RightForeArm > mixamorig:RightHand > mixamorig:RightHandRing1 > bone_for_spells
