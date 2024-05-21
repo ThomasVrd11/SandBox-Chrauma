@@ -18,6 +18,7 @@ public class EnemyAi : MonoBehaviour
     public float timeBetweenAttacks;
     bool alreadyAttacked;
     public GameObject projectile;
+    public GameObject launcher;
 
     // * States
     public float sightRange, attackRange;
@@ -41,14 +42,14 @@ public class EnemyAi : MonoBehaviour
     }
     private void Patroling()
     {
-            if (!walkPointSet) SearchWalkPoint();
-            if (walkPointSet)
-                agent.SetDestination(walkPoint);
-            
-            Vector3 distanceToWalkPoint = transform.position - walkPoint;
+        if (!walkPointSet) SearchWalkPoint();
+        if (walkPointSet)
+            agent.SetDestination(walkPoint);
 
-            if (distanceToWalkPoint.magnitude < 1f)
-                walkPointSet = false;
+        Vector3 distanceToWalkPoint = transform.position - walkPoint;
+
+        if (distanceToWalkPoint.magnitude < 1f)
+            walkPointSet = false;
 
     }
 
@@ -71,14 +72,14 @@ public class EnemyAi : MonoBehaviour
     private void AttackPlayer()
     {
         agent.SetDestination(transform.position);
-        transform.LookAt(player);
+        Vector3 direction = (player.position - launcher.transform.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
         if (!alreadyAttacked)
         {
             // * Attack code here
-            Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
+            Rigidbody rb = Instantiate(projectile, launcher.transform.position, Quaternion.identity).GetComponent<Rigidbody>();
             rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
-            rb.AddForce(transform.up * 8f, ForceMode.Impulse);
-
 
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
