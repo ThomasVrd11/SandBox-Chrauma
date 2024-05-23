@@ -44,7 +44,7 @@ public class AnimationAndMovementController : MonoBehaviour
     private float skill1TimeLeft = 0;
     private float skill2TimeLeft = 0;
     private float skill3TimeLeft = 0;
-    private float skillCooldown = 1.5f;
+    //private float skillCooldown = 1.5f;
     private int skill1Stage = 0;
     private int skill2Stage = 0;
     private int skill3Stage = 0;

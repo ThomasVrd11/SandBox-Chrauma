@@ -7,9 +7,9 @@ public class Combo : MonoBehaviour
     private Animator animator;
     private int comboIndex = 0;
     //private float lastClickedTime = 0f;
-    [SerializeField] private float maxComboDelay = 0.7f;
+    //[SerializeField] private float maxComboDelay = 0.7f;
     private int maxCombo = 5;
-    private bool hasAttacked = false;
+    //private bool hasAttacked = false;
     private bool continueCombo = false;
 
     void Start()
