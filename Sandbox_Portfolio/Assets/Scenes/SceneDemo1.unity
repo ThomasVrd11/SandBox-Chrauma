@@ -4877,7 +4877,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: cd425673c3ee04e7394f01516d95c017, type: 2}
+      objectReference: {fileID: 9100000, guid: f91c2311e9ce24993bc3ed6340e2450a, type: 2}
     - target: {fileID: 7685795967766868461, guid: db5a730f246514ca8a4ff4e5929cf72b,
         type: 3}
       propertyPath: m_WarningMessage

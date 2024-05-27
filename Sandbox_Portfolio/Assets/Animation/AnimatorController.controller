@@ -155,7 +155,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Skill2Stage3
-  m_Speed: 1.06
+  m_Speed: 1.51
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 7163808141453341312}
@@ -169,7 +169,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 9036961605599940741, guid: acd55adcf5d68d84e9a4e99feb436e00,
+  m_Motion: {fileID: -3138965411240175725, guid: a364ec3b823c5c94f98dc4b89e439346,
     type: 3}
   m_Tag: 
   m_SpeedParameter: 
@@ -309,7 +309,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Skill1Stage2
-  m_Speed: 1
+  m_Speed: 1.3
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -9050841313074177178}
@@ -515,7 +515,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Skill3Stage1
-  m_Speed: 1.12
+  m_Speed: 1.27
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 5268765061927656687}
@@ -569,7 +569,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Skill3Stage3
-  m_Speed: 1.09
+  m_Speed: 1.31
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 5878428581196846540}
@@ -710,7 +710,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Skill1Stage3
-  m_Speed: 1
+  m_Speed: 1.16
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 7957895455245261934}
@@ -889,7 +889,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Skill2Stage2
-  m_Speed: 1.06
+  m_Speed: 1.29
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 35010414504121890}
@@ -941,7 +941,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Skill1Stage1
-  m_Speed: 1
+  m_Speed: 1.31
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 7900124430138246471}
@@ -996,7 +996,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Skill2Stage1
-  m_Speed: 1.06
+  m_Speed: 1.33
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -8026022945966332803}
@@ -1076,7 +1076,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Skill3Stage2
-  m_Speed: 1.12
+  m_Speed: 1.24
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -7220409970218770058}
