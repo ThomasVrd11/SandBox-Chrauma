@@ -12,6 +12,13 @@ public class AnimationAndMovementController : MonoBehaviour
 
     // * ########## Hashes ########## * //
     int isWalkingHash;
+    int isStrafingLeftHash;
+    int isStrafingRightHash;
+    int isWalkingBackwardHash;
+    int isWalkingFrontLeftHash;
+    int isWalkingFrontRightHash;
+    int isWalkingBackLeftHash;
+    int isWalkingBackRightHash;
     int berserkTriggerHash;
     int skill1TriggerHash;
     int skill2TriggerHash;
@@ -62,6 +69,13 @@ public class AnimationAndMovementController : MonoBehaviour
         animator = GetComponent<Animator>();
 
         isWalkingHash = Animator.StringToHash("isWalking");
+        isStrafingLeftHash = Animator.StringToHash("isStrafingLeft");
+        isStrafingRightHash = Animator.StringToHash("isStrafingRight");
+        isWalkingBackwardHash = Animator.StringToHash("isWalkingBackward");
+        isWalkingFrontLeftHash = Animator.StringToHash("isWalkingFrontLeft");
+        isWalkingFrontRightHash = Animator.StringToHash("isWalkingFrontRight");
+        isWalkingBackLeftHash = Animator.StringToHash("isWalkingBackLeft");
+        isWalkingBackRightHash = Animator.StringToHash("isWalkingBackRight");
         berserkTriggerHash = Animator.StringToHash("Berserk");
         skill1TriggerHash = Animator.StringToHash("Skill1Stage");
         skill2TriggerHash = Animator.StringToHash("Skill2Stage");
@@ -207,15 +221,70 @@ public class AnimationAndMovementController : MonoBehaviour
 
     void HandleAnimation()
     {
-        bool isWalking = animator.GetBool(isWalkingHash);
+        // Reset all animation states
+        animator.SetBool(isWalkingHash, false);
+        animator.SetBool(isStrafingLeftHash, false);
+        animator.SetBool(isStrafingRightHash, false);
+        animator.SetBool(isWalkingBackwardHash, false);
+        animator.SetBool(isWalkingFrontLeftHash, false);
+        animator.SetBool(isWalkingFrontRightHash, false);
+        animator.SetBool(isWalkingBackLeftHash, false);
+        animator.SetBool(isWalkingBackRightHash, false);
 
-        if (isMovementPressed && !isWalking)
+        if (isMovementPressed)
         {
-            animator.SetBool(isWalkingHash, true);
-        }
-        else if (!isMovementPressed && isWalking)
-        {
-            animator.SetBool(isWalkingHash, false);
+            Vector3 movementDirection = characterController.transform.InverseTransformDirection(currentMovement);
+            float absX = Mathf.Abs(movementDirection.x);
+            float absZ = Mathf.Abs(movementDirection.z);
+            float diagonalThreshold = 1.2f;
+            // Check which axis has the greater absolute movement
+            if (absX > diagonalThreshold && absZ > diagonalThreshold)
+            {
+                if (movementDirection.z > 0)
+                {
+                    if (movementDirection.x > 0)
+                    {
+                        animator.SetBool(isWalkingFrontRightHash, true);
+                    }
+                    else
+                    {
+                        animator.SetBool(isWalkingFrontLeftHash, true);
+                    }
+                }
+                else
+                {
+                    if (movementDirection.x > 0)
+                    {
+                        animator.SetBool(isWalkingBackRightHash, true);
+                    }
+                    else
+                    {
+                        animator.SetBool(isWalkingBackLeftHash, true);
+                    }
+                }
+            }
+            else if (absX > absZ)
+            {
+                if (movementDirection.x > 0)
+                {
+                    animator.SetBool(isStrafingRightHash, true);
+                }
+                else if (movementDirection.x < 0)
+                {
+                    animator.SetBool(isStrafingLeftHash, true);
+                }
+            }
+            else
+            {
+                if (movementDirection.z > 0)
+                {
+                    animator.SetBool(isWalkingHash, true);
+                }
+                else if (movementDirection.z < 0)
+                {
+                    animator.SetBool(isWalkingBackwardHash, true);
+                }
+            }
         }
     }
 
