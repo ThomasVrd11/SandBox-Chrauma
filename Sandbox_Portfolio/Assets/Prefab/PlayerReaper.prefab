@@ -114,7 +114,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9028168106089266070}
-  - component: {fileID: 3610115831643039827}
   m_Layer: 6
   m_Name: WeaponAim
   m_TagString: Untagged
@@ -138,19 +137,6 @@ Transform:
   - {fileID: 8716501845093456130}
   m_Father: {fileID: 7883700736516484062}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3610115831643039827
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7710145660103114607}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ccc2f6b8b6c0724390bef52b1803a32, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 7883700736516484062}
 --- !u!1001 &7883700736516354392
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -547,10 +533,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 7229465023311862636}
-    - targetCorrespondingSourceObject: {fileID: 100006, guid: 688b64c3a75a93642a1c79bd7bf890dc,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 6873270231616865693}
   m_SourcePrefab: {fileID: 100100000, guid: 688b64c3a75a93642a1c79bd7bf890dc, type: 3}
 --- !u!1 &7883700736516388862 stripped
 GameObject:
@@ -600,6 +582,7 @@ MonoBehaviour:
   dashDuration: 0.05
   berserkDuration: 10
   berserkCooldownUI: {fileID: 0}
+  mainCamera: {fileID: 0}
 --- !u!114 &4309924797335684248
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -637,19 +620,6 @@ CapsuleCollider:
   m_Height: 2.17
   m_Direction: 1
   m_Center: {x: 0, y: 0.87, z: 0}
---- !u!114 &6873270231616865693
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7883700736516388862}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e1c764aaf63aae4880a4d081dc07be2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ball: {fileID: 1262215949826193813}
 --- !u!4 &7883700736516484062 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400006, guid: 688b64c3a75a93642a1c79bd7bf890dc,

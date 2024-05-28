@@ -26,7 +26,6 @@ public class AnimationAndMovementController : MonoBehaviour
     bool skill1Pressed = false;
 
     // * ########## Constants movement ########## * //
-    float rotationFactorPerFrame = 15.0f;
     float normalSpeed = 4.5f;
     public float dashSpeed = 100f;
     public float dashDuration = 0.05f;
@@ -44,7 +43,6 @@ public class AnimationAndMovementController : MonoBehaviour
     private float skill1TimeLeft = 0;
     private float skill2TimeLeft = 0;
     private float skill3TimeLeft = 0;
-    //private float skillCooldown = 1.5f;
     private int skill1Stage = 0;
     private int skill2Stage = 0;
     private int skill3Stage = 0;
@@ -52,6 +50,9 @@ public class AnimationAndMovementController : MonoBehaviour
 
     // * ########## UI ELEMENTS ########## * //
     public SkillCooldownUI berserkCooldownUI;
+
+    // * ########## Camera ########## * //
+    [SerializeField] Camera mainCamera;
 
     // * ########## Functions ########## * //
     void Awake()
@@ -90,7 +91,6 @@ public class AnimationAndMovementController : MonoBehaviour
             {
                 isDashPressed = false;  // * Reset dash press
                 speed = isBerserk ? normalSpeed * 1.5f : normalSpeed;
-                HandleMovement();
             }
         }
 
@@ -100,9 +100,10 @@ public class AnimationAndMovementController : MonoBehaviour
         }
 
         UpdateSkillTimers();
+        HandleMovement();
+        HandleLookDirection();
+        HandleAnimation();
 
-        handleRotation();
-        handleAnimation();
         appliedMovement.x = currentMovement.x;
         appliedMovement.z = currentMovement.z;
 
@@ -151,7 +152,6 @@ public class AnimationAndMovementController : MonoBehaviour
             dashTimeLeft = dashDuration;
             dashCooldownLeft = dashCooldown;
             speed = dashSpeed;
-            HandleMovement();
         }
     }
 
@@ -169,24 +169,6 @@ public class AnimationAndMovementController : MonoBehaviour
         isMovementPressed = currentMovementInput.x != 0 || currentMovementInput.y != 0;
     }
 
-    void handleRotation()
-    {
-        Vector3 positionToLookAt;
-        // * the change in pos our character should point to
-        positionToLookAt.x = currentMovement.x;
-        positionToLookAt.y = 0.0f;
-        positionToLookAt.z = currentMovement.z;
-        // * the current rotation of our character
-        Quaternion currentRotation = transform.rotation;
-        if (isMovementPressed)
-        {
-            // * the rotation we want to have
-            Quaternion targetRotation = Quaternion.LookRotation(positionToLookAt);
-            // * the rotation we want to have
-            transform.rotation = Quaternion.Slerp(currentRotation, targetRotation, rotationFactorPerFrame * Time.deltaTime);
-        }
-    }
-
     Vector2 RotateInput(Vector2 input, float degrees)
     {
         float radians = degrees * Mathf.Deg2Rad;
@@ -201,7 +183,29 @@ public class AnimationAndMovementController : MonoBehaviour
         return input;
     }
 
-    void handleAnimation()
+    void HandleLookDirection()
+    {
+        Vector3 mousePosition = GetMouseWorldPosition();
+        Vector3 directionToLookAt = (mousePosition - transform.position).normalized;
+        directionToLookAt.y = 0; // Ensure the character only rotates on the Y axis
+
+        // Rotate the player
+        Quaternion targetRotation = Quaternion.LookRotation(directionToLookAt);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 15f); // Smooth rotation
+    }
+
+    Vector3 GetMouseWorldPosition()
+    {
+        Plane plane = new Plane(Vector3.up, transform.position);
+        Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
+        if (plane.Raycast(ray, out float enter))
+        {
+            return ray.GetPoint(enter);
+        }
+        return Vector3.zero;
+    }
+
+    void HandleAnimation()
     {
         bool isWalking = animator.GetBool(isWalkingHash);
 
@@ -248,7 +252,6 @@ public class AnimationAndMovementController : MonoBehaviour
             animator.SetTrigger(skill1TriggerHash);
             Debug.Log("Skill1 Stage: " + skill1Stage);
 
-            
             StartCoroutine(ResetSkill1Pressed());
         }
     }
