@@ -80,12 +80,12 @@ public class EnemyAIMelee : MonoBehaviour
     private void AttackPlayer()
     {
         agent.SetDestination(transform.position);
-        //transform.LookAt(player);
+        transform.LookAt(player);
         
         if (!alreadyAttacked)
         {
             // * attack ici
-            Debug.Log("Melee attack!");
+            // Debug.Log("Melee attack!");
             enemyAnimator.startAttackAnimation();
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
@@ -94,19 +94,19 @@ public class EnemyAIMelee : MonoBehaviour
 
     private void ResetAttack()
     {
-		if (playerInAttackRange)
-		{
-			playerStats.TakeDamage(10);
-		}
+		// if (playerInAttackRange)
+		// {
+		// 	playerStats.TakeDamage(10);
+		// }
         enemyAnimator.stopAttackAnimation();
         alreadyAttacked = false;
     }
 
-    public void TakeDamage(int damage)
-    {
-        health -= damage;
-        if (health <= 0) Invoke(nameof(DestroyEnemy), 0.5f);
-    }
+    // public void TakeDamage(int damage)
+    // {
+    //     health -= damage;
+    //     if (health <= 0) Invoke(nameof(DestroyEnemy), 0.5f);
+    // }
 
     private void DestroyEnemy()
     {
