@@ -6,6 +6,7 @@ public class SmoothCinemachineSwitcher : MonoBehaviour
 {
     public CinemachineVirtualCamera perspectiveCamera;
     public CinemachineVirtualCamera orthographicCamera;
+	[SerializeField] private CharacterController characterController;
     public float transitionDuration = 1.0f;
 
     private Camera mainCamera;
