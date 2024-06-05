@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class AnimationAndMovementController1 : MonoBehaviour
+public class CharacterControls : MonoBehaviour
 {
     // * ########## Variables ########## * //
     PlayerInput playerInput;
@@ -29,7 +29,7 @@ public class AnimationAndMovementController1 : MonoBehaviour
     Vector3 currentMovement;
     Vector3 appliedMovement;
     bool isMovementPressed;
-    bool isDashPressed;
+    //bool isDashPressed;
     bool skill1Pressed = false;
 
     // * ########## Constants movement ########## * //
@@ -103,7 +103,7 @@ public class AnimationAndMovementController1 : MonoBehaviour
             dashTimeLeft -= Time.deltaTime;
             if (dashTimeLeft <= 0)
             {
-                isDashPressed = false;  // * Reset dash press
+                //isDashPressed = false;  // * Reset dash press
                 speed = isBerserk ? normalSpeed * 1.5f : normalSpeed;
             }
         }
@@ -119,8 +119,8 @@ public class AnimationAndMovementController1 : MonoBehaviour
         UpdateAnimatorParameters();
         appliedMovement.x = currentMovement.x;
         appliedMovement.z = currentMovement.z;
-
-        characterController.Move(appliedMovement * Time.deltaTime);
+        if (characterController.enabled)
+            characterController.Move(appliedMovement * Time.deltaTime);
     }
 
     void UpdateSkillTimers()
@@ -161,7 +161,7 @@ public class AnimationAndMovementController1 : MonoBehaviour
     {
         if (context.phase == InputActionPhase.Performed && dashCooldownLeft <= 0)
         {
-            isDashPressed = true;
+            //isDashPressed = true;
             dashTimeLeft = dashDuration;
             dashCooldownLeft = dashCooldown;
             speed = dashSpeed;

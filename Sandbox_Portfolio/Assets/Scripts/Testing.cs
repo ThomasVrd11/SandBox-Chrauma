@@ -22,7 +22,7 @@ public class Testing : MonoBehaviour
     Vector3 currentMovement;
     Vector3 appliedMovement;
     bool isMovementPressed;
-    bool isDashPressed;
+    //bool isDashPressed;
     bool skill1Pressed = false;
 
     // * ########## Constants movement ########## * //
@@ -92,7 +92,7 @@ public class Testing : MonoBehaviour
             dashTimeLeft -= Time.deltaTime;
             if (dashTimeLeft <= 0)
             {
-                isDashPressed = false;  // * Reset dash press
+                //isDashPressed = false;  // * Reset dash press
                 speed = isBerserk ? normalSpeed * 1.5f : normalSpeed;
             }
         }
@@ -152,7 +152,7 @@ public class Testing : MonoBehaviour
     {
         if (context.phase == InputActionPhase.Performed && dashCooldownLeft <= 0)
         {
-            isDashPressed = true;
+            //isDashPressed = true;
             dashTimeLeft = dashDuration;
             dashCooldownLeft = dashCooldown;
             speed = dashSpeed;
