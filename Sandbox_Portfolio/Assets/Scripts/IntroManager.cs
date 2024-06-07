@@ -14,17 +14,29 @@ public class IntroManager : MonoBehaviour
 	//0-reaper body 1-scythe 2-lilghost body
 
 	[SerializeField] GameObject player;
+	[SerializeField] float lookAroundTime;
+	[SerializeField] Renderer ghostRenderer;
+	[SerializeField] CharacterControls playerControls;
+	private Vector3 posLook1 = new Vector3(-129.06f, 23.90f, -16.44f);
+	private Vector3 posLook2 = new Vector3(-123f, 19f, -15f);
 
     void Start()
-    {
+	{
+		StartCoroutine(Initialize());
+	}
+
+	private IEnumerator Initialize()
+	{
+		yield return null;
 		introCam.gameObject.SetActive(true);
 		mainCam.gameObject.SetActive(false);
 		characterDisplay[0].SetActive(false);
 		characterDisplay[1].SetActive(false);
 		characterDisplay[2].SetActive(true);
-        StartCoroutine(IntroSceneStart());
-		player.GetComponent<CharacterControls>().enabled = false;
-    }
+
+		playerControls.enabled = false;
+		StartCoroutine(IntroSceneStart());
+	}
 
 	IEnumerator IntroSceneStart()
 	{
@@ -32,12 +44,45 @@ public class IntroManager : MonoBehaviour
 		introCam.gameObject.SetActive(false);
 		mainCam.gameObject.SetActive(true);
 		yield return new WaitForSeconds(2f);
-		player.transform.LookAt(lookingAroundTarget.transform.position);
-		yield return null;	
+		yield return StartCoroutine(Apparition());
+		lookAround(lookingAroundTarget.transform.position);
+		yield return new WaitForSeconds(lookAroundTime);
+		lookAround(posLook2);
+		yield return new WaitForSeconds(lookAroundTime);
+		lookAround(posLook1);
+		yield return new WaitForSeconds(0.5f);
+		lilGhostAnimator.SetTrigger("Surprised");
+		yield return new WaitForSeconds(0.5f);
+		playerControls.enabled = true;
+		yield return null;
 	}
-    // Update is called once per frame
-    void Update()
+
+    IEnumerator Apparition()
     {
-        
+        MaterialPropertyBlock propBlock = new MaterialPropertyBlock();
+        float dissolveTime = 1.5f;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < dissolveTime)
+        {
+            elapsedTime += Time.deltaTime;
+            float dissolveValue = Mathf.Lerp(0, 1, elapsedTime / dissolveTime);
+
+            ghostRenderer.GetPropertyBlock(propBlock);
+            propBlock.SetFloat("_Dissolve", dissolveValue);
+            ghostRenderer.SetPropertyBlock(propBlock);
+
+            yield return null;
+        }
+        ghostRenderer.GetPropertyBlock(propBlock);
+        propBlock.SetFloat("_Dissolve", 1);
+        ghostRenderer.SetPropertyBlock(propBlock);
     }
+	private void lookAround(Vector3 pos)
+	{
+		Debug.Log("Looking at " + pos);
+		lookingAroundTarget.transform.position = pos;
+		player.transform.LookAt(lookingAroundTarget.transform.position);
+	}
+
 }
