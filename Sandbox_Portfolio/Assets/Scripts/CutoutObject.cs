@@ -31,7 +31,8 @@ public class CutoutObject : MonoBehaviour
         float distanceMoved = Vector3.Distance(lastPosition, targetObject.position);
         return distanceMoved > 0.5f;
     }
-
+    // Nico je comprends rien serieux 
+    
     private void UpdateCutout()
     {
         Vector2 cutoutPos = mainCamera.WorldToViewportPoint(targetObject.position);
