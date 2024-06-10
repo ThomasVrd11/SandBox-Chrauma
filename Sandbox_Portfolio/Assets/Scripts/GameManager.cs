@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-	public GameManager instance;
+	public static GameManager instance;
 	private void Awake() {
 		if (instance == null)
 		{
 			instance = this;
-			DontDestroyOnLoad(gameObject);
 		}
 		else if (instance != this)
 		{
@@ -21,6 +20,12 @@ public class GameManager : MonoBehaviour
         // #if !UNITY_EDITOR
         // Cursor.visible = false;
         // #endif
+
+		//if save exist
+		//button continue is white
+		// load stat from save
+		// elif new game
+		// stat default
     }
 
     // Update is called once per frame
