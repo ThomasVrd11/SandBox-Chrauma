@@ -80,6 +80,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Interaction"",
+                    ""type"": ""Button"",
+                    ""id"": ""46403aeb-7125-4e25-bb99-3cdfc87649b9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -192,6 +201,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""Skill3"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""000581c1-6774-4ddf-9386-c1da1a2f7bbe"",
+                    ""path"": ""<Keyboard>/g"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interaction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -206,6 +226,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_CharacterControls_Skill1 = m_CharacterControls.FindAction("Skill1", throwIfNotFound: true);
         m_CharacterControls_Skill2 = m_CharacterControls.FindAction("Skill2", throwIfNotFound: true);
         m_CharacterControls_Skill3 = m_CharacterControls.FindAction("Skill3", throwIfNotFound: true);
+        m_CharacterControls_Interaction = m_CharacterControls.FindAction("Interaction", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -273,6 +294,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_CharacterControls_Skill1;
     private readonly InputAction m_CharacterControls_Skill2;
     private readonly InputAction m_CharacterControls_Skill3;
+    private readonly InputAction m_CharacterControls_Interaction;
     public struct CharacterControlsActions
     {
         private @PlayerInput m_Wrapper;
@@ -283,6 +305,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @Skill1 => m_Wrapper.m_CharacterControls_Skill1;
         public InputAction @Skill2 => m_Wrapper.m_CharacterControls_Skill2;
         public InputAction @Skill3 => m_Wrapper.m_CharacterControls_Skill3;
+        public InputAction @Interaction => m_Wrapper.m_CharacterControls_Interaction;
         public InputActionMap Get() { return m_Wrapper.m_CharacterControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -310,6 +333,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Skill3.started += instance.OnSkill3;
             @Skill3.performed += instance.OnSkill3;
             @Skill3.canceled += instance.OnSkill3;
+            @Interaction.started += instance.OnInteraction;
+            @Interaction.performed += instance.OnInteraction;
+            @Interaction.canceled += instance.OnInteraction;
         }
 
         private void UnregisterCallbacks(ICharacterControlsActions instance)
@@ -332,6 +358,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Skill3.started -= instance.OnSkill3;
             @Skill3.performed -= instance.OnSkill3;
             @Skill3.canceled -= instance.OnSkill3;
+            @Interaction.started -= instance.OnInteraction;
+            @Interaction.performed -= instance.OnInteraction;
+            @Interaction.canceled -= instance.OnInteraction;
         }
 
         public void RemoveCallbacks(ICharacterControlsActions instance)
@@ -357,5 +386,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnSkill1(InputAction.CallbackContext context);
         void OnSkill2(InputAction.CallbackContext context);
         void OnSkill3(InputAction.CallbackContext context);
+        void OnInteraction(InputAction.CallbackContext context);
     }
 }
