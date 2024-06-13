@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Grass
-  m_Shader: {fileID: -6465566751694194690, guid: ac8bf597c9b76a941b7ae8a2df5a3990,
+  m_Name: RedGrass
+  m_Shader: {fileID: -6465566751694194690, guid: 403ccbed131769f45900c3de142ed505,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -115,7 +115,7 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _Smoothness: 0
+    - _Smoothness: 0.23
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -129,12 +129,12 @@ Material:
     - _windspeed: 0.1
     m_Colors:
     - _BaseColor: {r: 0.025631888, g: 0.6037736, b: 0.048111342, a: 1}
-    - _BottomColor: {r: 0.1529412, g: 0.4627451, b: 0.163886, a: 0}
+    - _BottomColor: {r: 0.4627451, g: 0.1529412, b: 0.17007224, a: 0}
     - _Color: {r: 0.025631888, g: 0.6037736, b: 0.04811132, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _FarColor: {r: 0.018273197, g: 0.5176471, b: 0, a: 0}
+    - _FarColor: {r: 0.5176471, g: 0.010350802, b: 0, a: 0}
     - _MainColor: {r: 0, g: 0, b: 0, a: 0}
-    - _NearColor: {r: 0.15306607, g: 0.8784314, b: 0.05490196, a: 0}
+    - _NearColor: {r: 0.8784314, g: 0.05490196, b: 0.06322227, a: 0}
     - _NearFarRange: {r: 16.1, g: 48.25, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
