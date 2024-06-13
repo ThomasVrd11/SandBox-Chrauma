@@ -4,16 +4,18 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerStats : MonoBehaviour
+public class PlayerStats : MonoBehaviour, IDataPersistence
 {
+	public static PlayerStats instance;
 	private int max_health;
 	private int max_entropy;
-	public int current_health;
-	public int current_entropy;
-	private int buffer_health;
+	[SerializeField]  int current_health;
+	[SerializeField] int current_entropy;
+	[SerializeField] private int buffer_health;
 	private int buffer_entropy;
 	private GameObject UI;
 	private Slider slider_health;
+	private Slider slider_entropy;
 
 
 	private void Awake()
@@ -23,8 +25,10 @@ public class PlayerStats : MonoBehaviour
 	}
     void Start()
     {
+		instance = this;
 		UI = GameObject.Find("UI");
 		slider_health = UI.transform.Find("HealthBar_").GetComponent<Slider>();
+		slider_entropy = UI.transform.Find("Entropy").GetComponent<Slider>();
 
 	    /* Setup stats */
         current_health = max_health;
@@ -32,6 +36,7 @@ public class PlayerStats : MonoBehaviour
 		buffer_entropy = max_entropy;
 		buffer_health = max_health;
 		slider_health.value = current_health;
+		slider_entropy.value = current_entropy;
     }
 
     // Update is called once per frame
@@ -51,5 +56,20 @@ public class PlayerStats : MonoBehaviour
 	public void TakeDamage(int damage)
 	{
 		buffer_health -= damage;
+	}
+	public void LoadData(GameData data)
+	{
+		this.buffer_health = data.health;
+		this.buffer_entropy = data.entropy;
+	}
+	public void SaveData(GameData data)
+	{
+		if (data == null)
+		{
+			Debug.LogError("GameData is null in playerstats.SaveData");
+			return;
+		}
+		data.health = this.current_health;
+		data.entropy = this.current_entropy;
 	}
 }

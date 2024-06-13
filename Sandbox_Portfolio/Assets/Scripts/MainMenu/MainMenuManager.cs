@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
+using TMPro;
 
 public class MainMenuManager : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] GameObject cinematicCamera;
     [SerializeField] Animator camAnimator;
     [SerializeField] CanvasGroup canvasGroup;
+    [SerializeField] TMP_Text continueText;
     private GameObject floor;
     private ColorAdjustments colorAdjustments;
     private bool selectedStart = false;
@@ -29,6 +31,10 @@ public class MainMenuManager : MonoBehaviour
         if (volume.profile.TryGet(out colorAdjustments))
         {
             StartCoroutine(ChangeSaturation());
+        }
+        if (DataPersistenceManager.instance.CheckIfSave())
+        {
+            continueText.color = Color.white;
         }
     }
 
@@ -97,8 +103,7 @@ public class MainMenuManager : MonoBehaviour
 
     IEnumerator launchGame()
     {
-        SceneSwitch switchscene = GM.GetComponent<SceneSwitch>();
         yield return new WaitForSeconds(5);
-        switchscene.SwitchScene(1);
+        GameManager.instance.SwitchScene(1);
     }
 }

@@ -528,10 +528,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 100006, guid: 688b64c3a75a93642a1c79bd7bf890dc,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4309924797335684248}
-    - targetCorrespondingSourceObject: {fileID: 100006, guid: 688b64c3a75a93642a1c79bd7bf890dc,
-        type: 3}
-      insertIndex: -1
       addedObject: {fileID: 7229465023311862636}
     - targetCorrespondingSourceObject: {fileID: 100006, guid: 688b64c3a75a93642a1c79bd7bf890dc,
         type: 3}
@@ -570,20 +566,6 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4309924797335684248
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7883700736516388862}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7aad31513d840bb4782aa428238f406b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  current_health: 0
-  current_entropy: 0
 --- !u!136 &7229465023311862636
 CapsuleCollider:
   m_ObjectHideFlags: 0
