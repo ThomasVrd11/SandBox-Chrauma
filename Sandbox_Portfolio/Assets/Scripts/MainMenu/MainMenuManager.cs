@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
-using TMPro;
+using UnityEngine.UI;
 
 public class MainMenuManager : MonoBehaviour
 {
@@ -16,7 +16,7 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] GameObject cinematicCamera;
     [SerializeField] Animator camAnimator;
     [SerializeField] CanvasGroup canvasGroup;
-    [SerializeField] TMP_Text continueText;
+    [SerializeField] Button continueButton;
     private GameObject floor;
     private ColorAdjustments colorAdjustments;
     private bool selectedStart = false;
@@ -34,7 +34,7 @@ public class MainMenuManager : MonoBehaviour
         }
         if (DataPersistenceManager.instance.CheckIfSave())
         {
-            continueText.color = Color.white;
+            continueButton.interactable = true;
         }
     }
 

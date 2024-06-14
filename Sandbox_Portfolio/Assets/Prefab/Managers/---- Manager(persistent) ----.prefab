@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf5238c85af34d14081788978551a99c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fileName: player.save
 --- !u!1 &2823921704984358744
 GameObject:
   m_ObjectHideFlags: 0
@@ -54,6 +55,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3986137560304290265}
   - component: {fileID: 8681314179135907960}
+  - component: {fileID: 2485262756948123072}
   m_Layer: 0
   m_Name: ---- Manager(persistent) ----
   m_TagString: Untagged
@@ -89,6 +91,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0050ec6c9a45d714196f18af07f5dfec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2485262756948123072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2823921704984358744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d54f21f8cfee5f54e9ae6ff9e3741206, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &3212219277315645913
@@ -193,5 +207,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7aad31513d840bb4782aa428238f406b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  current_health: 0
+  current_health: 100
   current_entropy: 0
+  buffer_health: 100

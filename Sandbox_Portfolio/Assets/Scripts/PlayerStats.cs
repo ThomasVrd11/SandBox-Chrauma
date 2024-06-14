@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerStats : MonoBehaviour, IDataPersistence
 {
 	public static PlayerStats instance;
 	private int max_health;
 	private int max_entropy;
-	[SerializeField]  int current_health;
+	[SerializeField] int current_health;
 	[SerializeField] int current_entropy;
 	[SerializeField] private int buffer_health;
 	private int buffer_entropy;
@@ -23,36 +24,73 @@ public class PlayerStats : MonoBehaviour, IDataPersistence
 		max_health = 100;
 		max_entropy = 100;
 	}
-    void Start()
-    {
+	void Start()
+	{
 		instance = this;
-		UI = GameObject.Find("UI");
-		slider_health = UI.transform.Find("HealthBar_").GetComponent<Slider>();
-		slider_entropy = UI.transform.Find("Entropy").GetComponent<Slider>();
-
-	    /* Setup stats */
-        current_health = max_health;
+		InitializeUI();
+		/* Setup stats */
+		current_health = max_health;
 		current_entropy = max_entropy;
 		buffer_entropy = max_entropy;
 		buffer_health = max_health;
-		slider_health.value = current_health;
-		slider_entropy.value = current_entropy;
-    }
+		UpdateSliders();
+	}
+	private void OnEnable()
+	{
+		SceneManager.sceneLoaded += OnSceneLoaded;
+	}
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (buffer_health != current_health)
+	private void OnDisable()
+	{
+		SceneManager.sceneLoaded -= OnSceneLoaded;
+	}
+	void Update()
+	{
+		if (buffer_health != current_health)
 		{
 			current_health = buffer_health;
-			slider_health.value = current_health;
+			UpdateSliders();
 		}
 		if (buffer_entropy != current_entropy)
 		{
-			current_entropy = buffer_entropy;
+			UpdateSliders();
 		}
-		//Debug.Log("hp = " + current_health);
-    }
+	}
+	void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+	{
+		InitializeUI();
+	}
+	private void InitializeUI()
+	{
+		UI = GameObject.Find("---- UI ----");
+		if (UI != null)
+		{
+			Transform healthTransform = UI.transform.Find("HealthBar_");
+			if (healthTransform != null)
+			{
+				slider_health = healthTransform.GetComponent<Slider>();
+			}
+
+			Transform entropyTransform = UI.transform.Find("EntropyBar_");
+			if (entropyTransform != null)
+			{
+				slider_entropy = entropyTransform.GetComponent<Slider>();
+			}
+			UpdateSliders();
+		}
+	}
+
+
+	// Update is called once per frame
+	private void UpdateSliders()
+	{
+		if (slider_health != null)
+		{
+			slider_health.value = current_health;
+		}
+		if (slider_entropy != null)
+			slider_entropy.value = current_entropy;
+	}
 	public void TakeDamage(int damage)
 	{
 		buffer_health -= damage;
