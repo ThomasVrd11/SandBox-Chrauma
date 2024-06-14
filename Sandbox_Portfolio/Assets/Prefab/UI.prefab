@@ -250,7 +250,7 @@ GameObject:
   - component: {fileID: 2756041076976971488}
   - component: {fileID: 155158740672772937}
   m_Layer: 5
-  m_Name: Entropy
+  m_Name: EntropyBar_
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
