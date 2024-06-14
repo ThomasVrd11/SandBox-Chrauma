@@ -8,7 +8,7 @@ public class DebugScript : MonoBehaviour
     [SerializeField]GameObject tppos;
     void Start()
     {
-        LogDontDestroyOnLoadObjects();
+        //LogDontDestroyOnLoadObjects();
     }
 
     void LogDontDestroyOnLoadObjects()
@@ -33,6 +33,22 @@ public class DebugScript : MonoBehaviour
                 Destroy(temp);
             }
         }
+    }
+    public void load()
+    {
+        DataPersistenceManager.instance.LoadGame();
+    }
+    public void save()
+    {
+        DataPersistenceManager.instance.SaveGame();
+    }
+    public void exit()
+    {
+        GameManager.instance.ExitGame();
+    }
+    public void debug()
+    {
+        DataPersistenceManager.instance.DebugList();
     }
     private void OnTriggerEnter(Collider other) {
         Debug.Log("Hey");

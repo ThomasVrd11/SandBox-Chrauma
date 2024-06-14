@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
-public class CharacterControls : MonoBehaviour
+public class CharacterControls : MonoBehaviour, IDataPersistence
 {
     // * ########## Variables ########## * //
     PlayerInput playerInput;
@@ -218,8 +219,8 @@ public class CharacterControls : MonoBehaviour
         return Vector3.zero;
     }
 
-    void HandleAnimation()
-    {
+    // void HandleAnimation()
+    // {
         // Reset all animation states
         // animator.SetBool(isWalkingHash, false);
         // animator.SetBool(isStrafingLeftHash, false);
@@ -285,7 +286,7 @@ public class CharacterControls : MonoBehaviour
         //         }
         //     }
         // }
-    }
+    //}
 	void UpdateAnimatorParameters()
     {
         Vector3 movementDirection = characterController.transform.InverseTransformDirection(currentMovement);
@@ -370,11 +371,33 @@ public class CharacterControls : MonoBehaviour
     {
         // * Enabling the PlayerInput
         playerInput.CharacterControls.Enable();
+
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     void OnDisable()
     {
         // * Disabling the PlayerInput
         playerInput.CharacterControls.Disable();
+
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if(DataPersistenceManager.instance.isLoading)
+        {
+            Debug.Log("triggered onsceneloaded of charactercontrols " + DataPersistenceManager.instance.loadedPlayerPos);
+            this.transform.SetPositionAndRotation(DataPersistenceManager.instance.loadedPlayerPos + new Vector3(0,0.4f,0), this.transform.rotation);
+            DataPersistenceManager.instance.isLoading = false;
+        }
+    }
+    public void LoadData(GameData data)
+    {
+        this.transform.SetPositionAndRotation(data.playerPos, this.transform.rotation);
+    }
+    public void SaveData(GameData data)
+    {
+        data.playerPos = this.transform.position;
     }
 }

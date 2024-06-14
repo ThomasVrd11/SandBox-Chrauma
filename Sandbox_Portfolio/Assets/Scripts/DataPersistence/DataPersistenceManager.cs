@@ -12,6 +12,8 @@ public class DataPersistenceManager : MonoBehaviour
     private List<IDataPersistence> dataPersistencesObjects;
     private FileDataHandler dataHandler;
     public static DataPersistenceManager instance {get; private set;}
+    public bool isLoading = false;
+    public Vector3 loadedPlayerPos;
 
     private void Awake() {
         if(instance != null)
@@ -34,20 +36,23 @@ public class DataPersistenceManager : MonoBehaviour
         this.gameData = dataHandler.Load();
         if (this.gameData == null)
         {
-            NewGame();
+            return;
         }
+        isLoading = true;
         foreach(IDataPersistence dataPersistenceObj in dataPersistencesObjects)
         {
             dataPersistenceObj.LoadData(gameData);
         }
+        loadedPlayerPos = gameData.playerPos;
+        GameManager.instance.SwitchScene(gameData.scene);
     }
     public void SaveGame()
     {
-        // TODO - gather data and file it into save file
         foreach(IDataPersistence dataPersistenceObj in dataPersistencesObjects)
         {
             dataPersistenceObj.SaveData(gameData);
         }
+        gameData.scene =  SceneManager.GetActiveScene().buildIndex;
         dataHandler.Save(gameData);
     }
     public bool CheckIfSave()
@@ -82,8 +87,10 @@ public class DataPersistenceManager : MonoBehaviour
 
     public void DebugList()
     {
+        Debug.Log("Debuging");
         foreach(IDataPersistence dataPersistenceObj in dataPersistencesObjects)
         {
+            Debug.Log("obj:");
             Debug.Log(dataPersistenceObj.ToString());
         }
     }
