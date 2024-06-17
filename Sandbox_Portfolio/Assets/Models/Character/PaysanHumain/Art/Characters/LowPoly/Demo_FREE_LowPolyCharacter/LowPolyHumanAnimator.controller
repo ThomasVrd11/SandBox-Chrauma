@@ -11,13 +11,13 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 2569941726363179482}
-    m_Position: {x: 450, y: 330, z: 0}
+    m_Position: {x: 430, y: 120, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -417913669803764887}
-    m_Position: {x: 480, y: 120, z: 0}
+    m_Position: {x: 430, y: 30, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 4924736637318589422}
-    m_Position: {x: 710.5, y: -3, z: 0}
+    m_Position: {x: 430, y: -30, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -35,7 +35,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: New State
+  m_Name: walk
   m_Speed: 0.5
   m_CycleOffset: 0
   m_Transitions:
@@ -125,7 +125,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: New State 0
+  m_Name: die
   m_Speed: 0.36
   m_CycleOffset: 0
   m_Transitions: []
