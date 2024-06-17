@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance;
 
     public AudioMixer mixer;
+    private AudioSource bgmPlayer;
+    public List<AudioClip> bmgTracks;
 
     private void Awake()
     {
@@ -21,28 +24,29 @@ public class AudioManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        bgmPlayer = GetComponent<AudioSource>();
     }
     private void Start()
     {
         if (PlayerPrefs.HasKey("volumeMasterPref"))
-        SetVolumeMaster(PlayerPrefs.GetFloat("volumeMasterPref"));
+            SetVolumeMaster(PlayerPrefs.GetFloat("volumeMasterPref"));
         if (PlayerPrefs.HasKey("volumeMusicPref"))
-        SetVolumeMusic(PlayerPrefs.GetFloat("volumeMusicPref"));
+            SetVolumeMusic(PlayerPrefs.GetFloat("volumeMusicPref"));
         if (PlayerPrefs.HasKey("volumeSFXPref"))
-        SetVolumeSFX(PlayerPrefs.GetFloat("volumeSFXPref"));
+            SetVolumeSFX(PlayerPrefs.GetFloat("volumeSFXPref"));
     }
 
     public void SetVolumeMaster(float volumeMaster)
     {
         mixer.SetFloat("VolumeMaster", Mathf.Log10(volumeMaster) * 20);
     }
-    
+
     public void SetVolumeMusic(float volumeMusic)
     {
         mixer.SetFloat("VolumeMusic", Mathf.Log10(volumeMusic) * 20);
     }
     public void SetVolumeSFX(float volumeSFX)
-    {  
+    {
         mixer.SetFloat("VolumeSFX", Mathf.Log10(volumeSFX) * 20);
     }
     public void SaveVolumeSettings()
@@ -67,5 +71,27 @@ public class AudioManager : MonoBehaviour
 
         PlayerPrefs.Save();
     }
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        int sceneIndex = scene.buildIndex;
+
+        if (sceneIndex < bmgTracks.Count && bmgTracks[sceneIndex] != null)
+        {
+            bgmPlayer.clip = bmgTracks[sceneIndex];
+            bgmPlayer.Play();
+        }
+    }
+
+
 
 }
