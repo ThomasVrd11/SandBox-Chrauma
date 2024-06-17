@@ -17,6 +17,7 @@ public class IntroManager : MonoBehaviour
 	[SerializeField] float lookAroundTime;
 	[SerializeField] Renderer ghostRenderer;
 	[SerializeField] CharacterControls playerControls;
+	[SerializeField] TutorialTriggers tutorialTriggers;
 	private Vector3 posLook1 = new Vector3(-129.06f, 23.90f, -16.44f);
 	private Vector3 posLook2 = new Vector3(-123f, 19f, -15f);
 
@@ -52,8 +53,9 @@ public class IntroManager : MonoBehaviour
 		lookAround(posLook1);
 		yield return new WaitForSeconds(0.5f);
 		lilGhostAnimator.SetTrigger("Surprised");
-		yield return new WaitForSeconds(0.5f);
+		yield return new WaitForSeconds(0.7f);
 		playerControls.enabled = true;
+		tutorialTriggers.StartMovTuto();
 		yield return null;
 	}
 
@@ -80,7 +82,6 @@ public class IntroManager : MonoBehaviour
     }
 	private void lookAround(Vector3 pos)
 	{
-		Debug.Log("Looking at " + pos);
 		lookingAroundTarget.transform.position = pos;
 		player.transform.LookAt(lookingAroundTarget.transform.position);
 	}
