@@ -17,6 +17,7 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] Animator camAnimator;
     [SerializeField] CanvasGroup canvasGroup;
     [SerializeField] Button continueButton;
+    [SerializeField] GameObject overrideSave;
     private GameObject floor;
     private ColorAdjustments colorAdjustments;
     private bool selectedStart = false;
@@ -105,5 +106,16 @@ public class MainMenuManager : MonoBehaviour
     {
         yield return new WaitForSeconds(5);
         GameManager.instance.SwitchScene(1);
+    }
+        public void CheckOverride()
+    {
+        if(!DataPersistenceManager.instance.CheckIfSave())
+        {
+            DataPersistenceManager.instance.NewGame();
+            GameObject.Find("MainMenuManager").GetComponent<MainMenuManager>().startTheGame();
+        } else {
+            overrideSave.SetActive(true);
+            GameObject.Find("LeftMenu").SetActive(false);
+        }
     }
 }

@@ -64,6 +64,7 @@ public class DataPersistenceManager : MonoBehaviour
         }
         else return false;
     }
+
     private List<IDataPersistence> FindAllDataPersistenceObjects()
     {
         IEnumerable<IDataPersistence> dataPersistenceObjects = FindObjectsOfType<MonoBehaviour>().OfType<IDataPersistence>();
