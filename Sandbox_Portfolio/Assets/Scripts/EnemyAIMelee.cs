@@ -1,8 +1,10 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.AI;
+using UnityEngine.Pool;
 
-public class EnemyAIMelee : MonoBehaviour
+
+public class Enemy : MonoBehaviour
 {
     public NavMeshAgent agent;
     public Transform player;
@@ -107,10 +109,19 @@ public class EnemyAIMelee : MonoBehaviour
     //     health -= damage;
     //     if (health <= 0) Invoke(nameof(DestroyEnemy), 0.5f);
     // }
+    private IObjectPool<Enemy> enemyPool;
 
-    private void DestroyEnemy()
+
+    public void SetPool(IObjectPool<Enemy> pool)
     {
-        Destroy(gameObject);
+        enemyPool = pool;
+    }
+
+    private void EnemyDies()
+    {
+        // * ici condition de mort de l'ennemi
+
+        enemyPool.Release(this);
     }
 
     private void OnDrawGizmosSelected_()

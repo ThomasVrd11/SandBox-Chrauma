@@ -3,6 +3,7 @@ using System.Collections;
 
 public class TeleportOnInteract : MonoBehaviour
 {
+    // * Variables for the teleportation
     public Transform receivingPortal;
     public bool isTeleporting = false;
     private float tpCooldown = 1.5f;
@@ -14,7 +15,7 @@ public class TeleportOnInteract : MonoBehaviour
     {
         portalsamescene = receivingPortal.GetComponent<PortalSameScene>();
     }
-
+    // * I setup input to G because Geleportation
     void Update()
     {
         if (playerIsInTrigger && Input.GetKeyDown(KeyCode.G) && !isTeleporting)
@@ -23,7 +24,7 @@ public class TeleportOnInteract : MonoBehaviour
         }
     }
 
-    private void TriggerEnterOn(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
@@ -31,8 +32,8 @@ public class TeleportOnInteract : MonoBehaviour
             playerIsInTrigger = true;
         }
     }
-
-    private void TriggerExitOn(Collider other)
+    // * Hello nico <3
+    private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
         {
@@ -40,7 +41,7 @@ public class TeleportOnInteract : MonoBehaviour
             playerIsInTrigger = false;
         }
     }
-
+    // * TP logic
     private IEnumerator TeleportPlayer()
     {
         isTeleporting = true;
