@@ -9,7 +9,9 @@ public class Enemy : MonoBehaviour
     public NavMeshAgent agent;
     public Transform player;
     public LayerMask whatIsGround, whatIsPlayer;
-    public float health;
+    public float startingHealth;
+    public float currentHealth;
+    public GameObject lifeDropPrefab;
 
     // * Patrol settings
     public Vector3 walkPoint;
@@ -32,11 +34,19 @@ public class Enemy : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
 		enemyAnimator = GetComponentInChildren<EnemyAnimator>();
 		timeBetweenAttacks = 1.0f;
+
+        // *set current hp when spawn
+        currentHealth = startingHealth;
+
+
     }
+
+    GameObject _LifeDropTarget;
 
 	private void Start()
 	{
 		playerStats = player.GetComponent<PlayerStats>();
+        _LifeDropTarget = GameObject.FindGameObjectWithTag("LifeDropTarget");
 	}
 
     private void Update()
@@ -121,7 +131,15 @@ public class Enemy : MonoBehaviour
     {
         // * ici condition de mort de l'ennemi
 
+        //* il va drop un item (topaz)
         enemyPool.Release(this);
+
+        // * il va drop la LifeDrop
+        for (int i = 0; i > startingHealth/10; i++)
+        {
+            var go = Instantiate(lifeDropPrefab, transform.position + new Vector3(0, Random.Range(0, 2)), Quaternion.identity);
+            go.GetComponent<FollowLifeDrop>().Target = _LifeDropTarget.transform;
+        }
     }
 
     private void OnDrawGizmosSelected_()

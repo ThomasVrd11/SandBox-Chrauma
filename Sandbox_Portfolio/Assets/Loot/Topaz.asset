@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4631563827ed04a0080516dcc2fa419b, type: 3}
   m_Name: Topaz
   m_EditorClassIdentifier: 
-  lootObject: {fileID: 0}
+  lootObject: {fileID: 3963300341481641170, guid: 6583fdd336b714285abe1fe291e1acb5,
+    type: 3}
   lootName: Topaz
   dropChance: 80

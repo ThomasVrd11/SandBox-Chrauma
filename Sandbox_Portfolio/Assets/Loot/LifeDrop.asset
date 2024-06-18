@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4631563827ed04a0080516dcc2fa419b, type: 3}
   m_Name: LifeDrop
   m_EditorClassIdentifier: 
-  lootObject: {fileID: 0}
+  lootObject: {fileID: 4152725230505655325, guid: beaef0eac10224ccfbd20aedac98cdc2,
+    type: 3}
   lootName: LifeDrop
   dropChance: 50
