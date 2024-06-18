@@ -14,13 +14,14 @@ public class FollowLifeDrop : MonoBehaviour
     public void StartFollowing()
     {
         _isFollowing = true;
+		Debug.Log("Come here " + Target.name + "!");
     }
 
     void Update()
     {
         if (_isFollowing)
         {
-            transform.position = Vector3.SmoothDamp(transform.position, Target.position, ref _velocity, Random.Range(MinModifier, MaxModifier));
+            transform.position = Vector3.SmoothDamp(transform.position, Target.position, ref _velocity, Time.deltaTime * Random.Range(MinModifier, MaxModifier));
         }
     }
 }
