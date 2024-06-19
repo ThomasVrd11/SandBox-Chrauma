@@ -64,7 +64,6 @@ public class Enemy : MonoBehaviour
         if (walkPointSet)
             agent.SetDestination(walkPoint);
 
-        Debug.Log("patroling");
         Vector3 distanceToWalkPoint = transform.position - walkPoint;
         // * assez proche ??
         if (distanceToWalkPoint.magnitude < 1)
@@ -75,7 +74,6 @@ public class Enemy : MonoBehaviour
     {
         float randomZ = Random.Range(-walkPointRange, walkPointRange);
         float randomX = Random.Range(-walkPointRange, walkPointRange);
-        Debug.Log("where to patroling");
         walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
 
         if (Physics.Raycast(walkPoint, -transform.up, 2f, whatIsGround))
@@ -85,14 +83,12 @@ public class Enemy : MonoBehaviour
     private void ChasePlayer()
     {
         agent.SetDestination(player.position);
-        Debug.Log("git!");
     }
 
     private void AttackPlayer()
     {
         agent.SetDestination(transform.position);
         transform.LookAt(player);
-        Debug.Log("tayo");
         if (!alreadyAttacked)
         {
             // * attack ici

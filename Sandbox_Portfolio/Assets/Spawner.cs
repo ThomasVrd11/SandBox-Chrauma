@@ -21,7 +21,7 @@ public class Spawner : MonoBehaviour
     private int totalSpawnedEnemies;
     private int currentActiveEnemies;
     private IObjectPool<Enemy> enemyPool;
-    [SerializeField] private bool isSpawningActive;
+    [SerializeField] public bool isSpawningActive;
 
     private void Awake()
     {

@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.TextCore.Text;
+
+
 
 public class TutorialTriggers : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class TutorialTriggers : MonoBehaviour
     [SerializeField] GameObject movementTuto;
     [SerializeField] GameObject dashTuto;
     [SerializeField] GameObject attackTuto;
+    [SerializeField] Spawner spawner;
+
     private bool isTutoPaused;
     private void OnTriggerEnter(Collider other) {
         if (other.gameObject.name == "Player")
@@ -17,8 +20,10 @@ public class TutorialTriggers : MonoBehaviour
             if(gameObject.name == "DashTutoCube")
             {
                 StartDashTuto();
-            }
-            if(gameObject.name == "BridgeHole")
+            } else if (gameObject.name == "AttackTutoCube")
+            {
+                StartAttackTuto();
+            } else if(gameObject.name == "BridgeHole")
             {
                 CharacterController playerCC = other.gameObject.GetComponent<CharacterController>();
                 playerCC.enabled = false;
@@ -33,6 +38,10 @@ public class TutorialTriggers : MonoBehaviour
         isTutoPaused = false;
         Time.timeScale = 1f;
         pauseUI.SetActive(false);
+        if (gameObject.name == "AttackTutoCube")
+        {
+            spawner.isSpawningActive = true;
+        }
         if(gameObject.name == "DashTutoCube" || gameObject.name == "AttackTutoCube")
         {
             gameObject.SetActive(false);
@@ -54,5 +63,11 @@ public class TutorialTriggers : MonoBehaviour
     {
         dashTuto.SetActive(true);
         Pause();
+    }
+    private void StartAttackTuto()
+    {
+        attackTuto.SetActive(true);
+        Pause();
+        spawner.isSpawningActive = true;
     }
 }

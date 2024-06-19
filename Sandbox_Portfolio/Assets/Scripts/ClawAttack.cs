@@ -13,7 +13,6 @@ public class ClawAttack : MonoBehaviour
 	}
 	private void OnTriggerEnter(Collider other) {
 		if (other.name == "Player") {
-			Debug.Log("Bim dans tes dents");
 			PlayerStats.instance.TakeDamage(damage);
 		}
 	}

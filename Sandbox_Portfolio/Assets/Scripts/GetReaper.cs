@@ -11,6 +11,7 @@ public class GetReaper : MonoBehaviour
 	[SerializeField] List<GameObject> playerModels;
 	[SerializeField] CinemachineVirtualCamera VCGetReaper;
 	[SerializeField] CinemachineVirtualCamera VCGetReaper2;
+	[SerializeField] CinemachineVirtualCamera VCFollowPlayer;
 	[SerializeField] Animator ghostAnimator;
 
 	private void OnTriggerEnter(Collider other) {
@@ -42,6 +43,7 @@ public class GetReaper : MonoBehaviour
 		yield return new WaitForSeconds(8);
 		player.transform.position = tpDestination.position;
 		yield return new WaitForSeconds(3);
+		VCFollowPlayer.m_Lens.NearClipPlane = -20;
 		VCGetReaper2.gameObject.SetActive(false);
 		VCGetReaper.gameObject.SetActive(false);
 		yield return new WaitForSeconds(1);
