@@ -38,6 +38,10 @@ public class IntroManager : MonoBehaviour
 		playerControls.enabled = false;
 		StartCoroutine(IntroSceneStart());
 	}
+	IEnumerator WhatHappened()
+	{
+		yield return null;
+	}
 
 	IEnumerator IntroSceneStart()
 	{

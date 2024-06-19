@@ -26,11 +26,10 @@ public class Enemy : MonoBehaviour
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
 	EnemyAnimator enemyAnimator;
-	PlayerStats playerStats;
+    GameObject _LifeDropTarget;
 
     private void Awake()
     {
-        player = GameObject.Find("Player").transform;
         agent = GetComponent<NavMeshAgent>();
 		enemyAnimator = GetComponentInChildren<EnemyAnimator>();
 		timeBetweenAttacks = 1.0f;
@@ -38,14 +37,12 @@ public class Enemy : MonoBehaviour
         // *set current hp when spawn
         currentHealth = startingHealth;
 
-
     }
 
-    GameObject _LifeDropTarget;
 
 	private void Start()
 	{
-		playerStats = player.GetComponent<PlayerStats>();
+        player = GameObject.FindGameObjectWithTag("Player").transform;
         _LifeDropTarget = GameObject.FindGameObjectWithTag("LifeDropTarget");
 	}
 
@@ -67,6 +64,7 @@ public class Enemy : MonoBehaviour
         if (walkPointSet)
             agent.SetDestination(walkPoint);
 
+        Debug.Log("patroling");
         Vector3 distanceToWalkPoint = transform.position - walkPoint;
         // * assez proche ??
         if (distanceToWalkPoint.magnitude < 1)
@@ -77,7 +75,7 @@ public class Enemy : MonoBehaviour
     {
         float randomZ = Random.Range(-walkPointRange, walkPointRange);
         float randomX = Random.Range(-walkPointRange, walkPointRange);
-
+        Debug.Log("where to patroling");
         walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
 
         if (Physics.Raycast(walkPoint, -transform.up, 2f, whatIsGround))
@@ -87,13 +85,14 @@ public class Enemy : MonoBehaviour
     private void ChasePlayer()
     {
         agent.SetDestination(player.position);
+        Debug.Log("git!");
     }
 
     private void AttackPlayer()
     {
         agent.SetDestination(transform.position);
         transform.LookAt(player);
-        
+        Debug.Log("tayo");
         if (!alreadyAttacked)
         {
             // * attack ici
@@ -106,10 +105,6 @@ public class Enemy : MonoBehaviour
 
     private void ResetAttack()
     {
-		// if (playerInAttackRange)
-		// {
-		// 	playerStats.TakeDamage(10);
-		// }
         enemyAnimator.stopAttackAnimation();
         alreadyAttacked = false;
     }

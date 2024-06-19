@@ -19,7 +19,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5509871442630254262
 Transform:
   m_ObjectHideFlags: 0
@@ -56,7 +56,9 @@ MonoBehaviour:
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 64
-  health: 100
+  startingHealth: 20
+  currentHealth: 0
+  lifeDropPrefab: {fileID: 0}
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 1
   timeBetweenAttacks: 0
