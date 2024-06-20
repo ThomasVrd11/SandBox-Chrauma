@@ -59,7 +59,7 @@ public class Spawner : MonoBehaviour
     {
         enemy.gameObject.SetActive(false);
         enemy.transform.position = spawnPointsHidden.position;
-        currentActiveEnemies--;
+        if (currentActiveEnemies < 0) currentActiveEnemies--;
     }
     void Update()
     {
@@ -67,6 +67,7 @@ public class Spawner : MonoBehaviour
         {
             SpawnEnemyAtPoint();
             timeSinceLastSpawn = Time.time + timeBetweenSpawns;
+            Debug.Log("current active" + currentActiveEnemies);
         }
     }
     public void SpawnEnemyAtPoint()

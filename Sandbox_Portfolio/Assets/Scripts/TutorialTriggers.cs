@@ -11,6 +11,7 @@ public class TutorialTriggers : MonoBehaviour
     [SerializeField] GameObject movementTuto;
     [SerializeField] GameObject dashTuto;
     [SerializeField] GameObject attackTuto;
+    [SerializeField] GameObject fightingUI;
     [SerializeField] Spawner spawner;
 
     private bool isTutoPaused;
@@ -68,6 +69,7 @@ public class TutorialTriggers : MonoBehaviour
     {
         attackTuto.SetActive(true);
         Pause();
+        fightingUI.SetActive(true);
         spawner.isSpawningActive = true;
     }
 }

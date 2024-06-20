@@ -3,6 +3,9 @@ using System.Collections;
 using UnityEngine.AI;
 using UnityEngine.Pool;
 
+//debug
+using TMPro;
+
 
 public class Enemy : MonoBehaviour
 {
@@ -28,6 +31,11 @@ public class Enemy : MonoBehaviour
 	EnemyAnimator enemyAnimator;
     GameObject _LifeDropTarget;
 
+    //debug
+    [SerializeField] TMP_Text hptext;
+    [SerializeField] TMP_Text hptext2;
+    public bool debugHP = false;
+
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -44,6 +52,7 @@ public class Enemy : MonoBehaviour
 	{
         player = GameObject.FindGameObjectWithTag("Player").transform;
         _LifeDropTarget = GameObject.FindGameObjectWithTag("LifeDropTarget");
+        if (debugHP) DebugHP(0);
 	}
 
     private void Update()
@@ -105,11 +114,12 @@ public class Enemy : MonoBehaviour
         alreadyAttacked = false;
     }
 
-    // public void TakeDamage(int damage)
-    // {
-    //     health -= damage;
-    //     if (health <= 0) Invoke(nameof(DestroyEnemy), 0.5f);
-    // }
+    public void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+        if (debugHP )DebugHP(damage);
+        if (currentHealth <= 0) EnemyDies();
+    }
     private IObjectPool<Enemy> enemyPool;
 
 
@@ -123,7 +133,7 @@ public class Enemy : MonoBehaviour
         // * ici condition de mort de l'ennemi
 
         //* il va drop un item (topaz)
-        enemyPool.Release(this);
+        if(enemyPool != null) enemyPool.Release(this);
 
         // * il va drop la LifeDrop
         for (int i = 0; i > startingHealth/10; i++)
@@ -131,6 +141,8 @@ public class Enemy : MonoBehaviour
             var go = Instantiate(lifeDropPrefab, transform.position + new Vector3(0, Random.Range(0, 2)), Quaternion.identity);
             go.GetComponent<FollowLifeDrop>().Target = _LifeDropTarget.transform;
         }
+        //debug
+        if (debugHP) Destroy(gameObject);
     }
 
     private void OnDrawGizmosSelected_()
@@ -139,5 +151,10 @@ public class Enemy : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, attackRange);
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, sightRange);
+    }
+    private void DebugHP(int damage)
+    {
+        hptext.text = "" + currentHealth;
+        hptext2.text = "" + damage;
     }
 }

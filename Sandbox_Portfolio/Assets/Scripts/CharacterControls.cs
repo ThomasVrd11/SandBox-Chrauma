@@ -10,6 +10,7 @@ public class CharacterControls : MonoBehaviour, IDataPersistence
     PlayerInput playerInput;
     CharacterController characterController;
     Animator animator;
+    [SerializeField] WeaponDamage scytheDamage;
 
     // * ########## Hashes ########## * //
     // int isWalkingHash;
@@ -61,6 +62,7 @@ public class CharacterControls : MonoBehaviour, IDataPersistence
 
     // * ########## Camera ########## * //
     [SerializeField] Camera mainCamera;
+    public bool debugMode;
 
     // * ########## Functions ########## * //
     void Awake()
@@ -133,7 +135,7 @@ public class CharacterControls : MonoBehaviour, IDataPersistence
             {
                 skill1Stage = 0;
                 animator.ResetTrigger(skill1TriggerHash);
-                Debug.Log("Skill1 Timer Expired: Resetting to Stage 0");
+                if(debugMode) Debug.Log("Skill1 Timer Expired: Resetting to Stage 0");
             }
         }
         if (skill2TimeLeft > 0)
@@ -143,7 +145,7 @@ public class CharacterControls : MonoBehaviour, IDataPersistence
             {
                 skill2Stage = 0;
                 animator.ResetTrigger(skill2TriggerHash);
-                Debug.Log("Skill2 Timer Expired: Resetting to Stage 0");
+                if(debugMode) Debug.Log("Skill2 Timer Expired: Resetting to Stage 0");
             }
         }
         if (skill3TimeLeft > 0)
@@ -153,7 +155,7 @@ public class CharacterControls : MonoBehaviour, IDataPersistence
             {
                 skill3Stage = 0;
                 animator.ResetTrigger(skill3TriggerHash);
-                Debug.Log("Skill3 Timer Expired: Resetting to Stage 0");
+                if(debugMode) Debug.Log("Skill3 Timer Expired: Resetting to Stage 0");
             }
         }
     }
@@ -287,6 +289,10 @@ public class CharacterControls : MonoBehaviour, IDataPersistence
         //     }
         // }
     //}
+    public void onAttack()
+    {
+        scytheDamage.OnAttack();
+    }
 	void UpdateAnimatorParameters()
     {
         Vector3 movementDirection = characterController.transform.InverseTransformDirection(currentMovement);
@@ -325,7 +331,7 @@ public class CharacterControls : MonoBehaviour, IDataPersistence
             skill1Stage = Mathf.Clamp(skill1Stage + 1, 1, 3);
             skill1TimeLeft = skillStageDuration;
             animator.SetTrigger(skill1TriggerHash);
-            Debug.Log("Skill1 Stage: " + skill1Stage);
+            if(debugMode) Debug.Log("Skill1 Stage: " + skill1Stage);
 
             StartCoroutine(ResetSkill1Pressed());
         }
@@ -344,7 +350,7 @@ public class CharacterControls : MonoBehaviour, IDataPersistence
             skill2Stage++;
             skill2TimeLeft = skillStageDuration;
             animator.SetTrigger(skill2TriggerHash);
-            Debug.Log("Skill2 Stage: " + skill2Stage);
+            if(debugMode) Debug.Log("Skill2 Stage: " + skill2Stage);
         }
     }
 
@@ -355,7 +361,7 @@ public class CharacterControls : MonoBehaviour, IDataPersistence
             skill3Stage++;
             skill3TimeLeft = skillStageDuration;
             animator.SetTrigger(skill3TriggerHash);
-            Debug.Log("Skill3 Stage: " + skill3Stage);
+            if(debugMode) Debug.Log("Skill3 Stage: " + skill3Stage);
         }
     }
 
@@ -387,7 +393,7 @@ public class CharacterControls : MonoBehaviour, IDataPersistence
     {
         if(DataPersistenceManager.instance.isLoading)
         {
-            Debug.Log("triggered onsceneloaded of charactercontrols " + DataPersistenceManager.instance.loadedPlayerPos);
+            if(debugMode) Debug.Log("triggered onsceneloaded of charactercontrols " + DataPersistenceManager.instance.loadedPlayerPos);
             this.transform.SetPositionAndRotation(DataPersistenceManager.instance.loadedPlayerPos + new Vector3(0,0.4f,0), this.transform.rotation);
             DataPersistenceManager.instance.isLoading = false;
         }
