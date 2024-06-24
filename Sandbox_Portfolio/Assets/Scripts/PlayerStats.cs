@@ -65,13 +65,9 @@ public class PlayerStats : MonoBehaviour, IDataPersistence
 		UI = GameObject.Find("---- UI ----");
 		if (UI != null)
 		{
-		Debug.Log("found ui");
-			
 			Transform healthTransform = UI.transform.Find("HealthBar_");
 			if (healthTransform != null)
 			{
-		Debug.Log("found health");
-
 				slider_health = healthTransform.GetComponent<Slider>();
 			}
 
@@ -91,6 +87,7 @@ public class PlayerStats : MonoBehaviour, IDataPersistence
 		if (slider_health != null)
 		{
 			slider_health.value = current_health;
+			Debug.Log("health has been updated to: " + slider_health.value);
 		}
 		if (slider_entropy != null)
 			slider_entropy.value = current_entropy;
@@ -117,5 +114,7 @@ public class PlayerStats : MonoBehaviour, IDataPersistence
 	public void SetHealthBar(Slider slider)
 	{
 		slider_health = slider;
+		Debug.Log("health set to: " + slider_health);
+		UpdateSliders();
 	}
 }

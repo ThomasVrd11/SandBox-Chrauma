@@ -40,7 +40,6 @@ public class Enemy : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
 		enemyAnimator = GetComponentInChildren<EnemyAnimator>();
-		timeBetweenAttacks = 1.0f;
 
         // *set current hp when spawn
         currentHealth = startingHealth;
@@ -110,7 +109,6 @@ public class Enemy : MonoBehaviour
 
     private void ResetAttack()
     {
-        enemyAnimator.stopAttackAnimation();
         alreadyAttacked = false;
     }
 
@@ -130,17 +128,13 @@ public class Enemy : MonoBehaviour
 
     private void EnemyDies()
     {
-        // * ici condition de mort de l'ennemi
-
-        //* il va drop un item (topaz)
-        if(enemyPool != null) enemyPool.Release(this);
-
         // * il va drop la LifeDrop
         for (int i = 0; i > startingHealth/10; i++)
         {
             var go = Instantiate(lifeDropPrefab, transform.position + new Vector3(0, Random.Range(0, 2)), Quaternion.identity);
             go.GetComponent<FollowLifeDrop>().Target = _LifeDropTarget.transform;
         }
+        if(enemyPool != null) enemyPool.Release(this);
         //debug
         if (debugHP) Destroy(gameObject);
     }

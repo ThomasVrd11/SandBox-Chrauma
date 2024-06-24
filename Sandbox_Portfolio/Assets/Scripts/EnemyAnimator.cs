@@ -33,9 +33,6 @@ private bool isWalking = false;
         animator.SetBool("isIdle", !isWalking);
     }
 	public void startAttackAnimation(){
-		animator.SetBool("isAttacking", true);
-	}	
-	public void stopAttackAnimation(){
-		animator.SetBool("isAttacking", false);
+		animator.SetTrigger("isAttacking");
 	}
 }

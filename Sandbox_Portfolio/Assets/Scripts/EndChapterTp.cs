@@ -15,30 +15,32 @@ public class EndChapterTp : MonoBehaviour
 		cc = GetComponent<CapsuleCollider>();
 	}
 
-    private void Update() {
+	private void Update()
+	{
 		if (spawner)
+		{
+			if (spawner.numberOfKilledEnnemies == 3 && !hasAppeared)
 			{
-				if (spawner.numberOfKilledEnnemies == 3 && !hasAppeared)
-				{
-					StartCoroutine(PortalAppear());
-				}
-			}		
-		
+				StartCoroutine(PortalAppear());
+			}
+		}
+
 	}
-    private void OnTriggerEnter(Collider other) {
+	private void OnTriggerEnter(Collider other)
+	{
 		GameManager.instance.SwitchScene(nextMapIndex);
 	}
 	IEnumerator PortalAppear()
 	{
-		Vector3 initialScale = gameObject.transform.localScale ;
+		Vector3 initialScale = gameObject.transform.localScale;
 		float currentTime = 0f;
 		while (currentTime < 2.5f)
 		{
-		float newScaleY = Mathf.Lerp(initialScale.y, 1, currentTime / 2.5f);
+			float newScaleY = Mathf.Lerp(initialScale.y, 1, currentTime / 2.5f);
 
-        transform.localScale = new Vector3(initialScale.x, newScaleY, initialScale.z);
-		currentTime += Time.deltaTime;
-		yield return null;
+			transform.localScale = new Vector3(initialScale.x, newScaleY, initialScale.z);
+			currentTime += Time.deltaTime;
+			yield return null;
 		}
 		transform.localScale = new Vector3(initialScale.x, 1, initialScale.z);
 		cc.enabled = true;
