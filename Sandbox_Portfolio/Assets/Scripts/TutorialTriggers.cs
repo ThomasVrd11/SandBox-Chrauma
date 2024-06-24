@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 
@@ -13,6 +14,8 @@ public class TutorialTriggers : MonoBehaviour
     [SerializeField] GameObject attackTuto;
     [SerializeField] GameObject fightingUI;
     [SerializeField] Spawner spawner;
+	[SerializeField] GameObject tpEndOfTuto;
+	[SerializeField] Slider healthSlider;
 
     private bool isTutoPaused;
     private void OnTriggerEnter(Collider other) {
@@ -68,8 +71,10 @@ public class TutorialTriggers : MonoBehaviour
     private void StartAttackTuto()
     {
         attackTuto.SetActive(true);
+		tpEndOfTuto.SetActive(true);
         Pause();
         fightingUI.SetActive(true);
+		PlayerStats.instance.SetHealthBar(healthSlider);
         spawner.isSpawningActive = true;
     }
 }
