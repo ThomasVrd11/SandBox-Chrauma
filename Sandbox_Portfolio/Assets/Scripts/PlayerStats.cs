@@ -17,6 +17,7 @@ public class PlayerStats : MonoBehaviour, IDataPersistence
 	private GameObject UI;
 	private Slider slider_health;
 	private Slider slider_entropy;
+	public bool debugMode = false;
 
 
 	private void Awake()
@@ -87,7 +88,7 @@ public class PlayerStats : MonoBehaviour, IDataPersistence
 		if (slider_health != null)
 		{
 			slider_health.value = current_health;
-			Debug.Log("health has been updated to: " + slider_health.value);
+			if (debugMode) Debug.Log("health has been updated to: " + slider_health.value);
 		}
 		if (slider_entropy != null)
 			slider_entropy.value = current_entropy;
@@ -95,6 +96,10 @@ public class PlayerStats : MonoBehaviour, IDataPersistence
 	public void TakeDamage(int damage)
 	{
 		buffer_health -= damage;
+	}
+	public void Heal(int heal)
+	{
+		buffer_health += heal;
 	}
 	public void LoadData(GameData data)
 	{
@@ -114,7 +119,7 @@ public class PlayerStats : MonoBehaviour, IDataPersistence
 	public void SetHealthBar(Slider slider)
 	{
 		slider_health = slider;
-		Debug.Log("health set to: " + slider_health);
+		if (debugMode) Debug.Log("health set to: " + slider_health);
 		UpdateSliders();
 	}
 }

@@ -14,7 +14,6 @@ public class FollowLifeDrop : MonoBehaviour
     public void StartFollowing()
     {
         _isFollowing = true;
-		Debug.Log("Come here " + Target.name + "!");
     }
 
     void Update()
@@ -22,6 +21,14 @@ public class FollowLifeDrop : MonoBehaviour
         if (_isFollowing)
         {
             transform.position = Vector3.SmoothDamp(transform.position, Target.position, ref _velocity, Time.deltaTime * Random.Range(MinModifier, MaxModifier));
+        }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "LifeDropTarget")
+        {
+            PlayerStats.instance.Heal(5);
+            Destroy(gameObject);
         }
     }
 }

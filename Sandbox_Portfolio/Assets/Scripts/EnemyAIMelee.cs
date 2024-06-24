@@ -35,6 +35,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] TMP_Text hptext;
     [SerializeField] TMP_Text hptext2;
     public bool debugHP = false;
+    [SerializeField] ParticleSystem bloodSplatter;
 
     private void Awake()
     {
@@ -115,6 +116,8 @@ public class Enemy : MonoBehaviour
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
+        if (debugHP) Debug.Log(gameObject.name + " hp:" + currentHealth);
+        bloodSplatter.Play();
         if (debugHP )DebugHP(damage);
         if (currentHealth <= 0) EnemyDies();
     }
@@ -129,14 +132,14 @@ public class Enemy : MonoBehaviour
     private void EnemyDies()
     {
         // * il va drop la LifeDrop
-        for (int i = 0; i > startingHealth/10; i++)
+        for (int i = 0; i < startingHealth/10; i++)
         {
             var go = Instantiate(lifeDropPrefab, transform.position + new Vector3(0, Random.Range(0, 2)), Quaternion.identity);
-            go.GetComponent<FollowLifeDrop>().Target = _LifeDropTarget.transform;
+            var goscript = go.GetComponent<FollowLifeDrop>();
+            goscript.Target = _LifeDropTarget.transform;
+            goscript.StartFollowing();
         }
         if(enemyPool != null) enemyPool.Release(this);
-        //debug
-        if (debugHP) Destroy(gameObject);
     }
 
     private void OnDrawGizmosSelected_()

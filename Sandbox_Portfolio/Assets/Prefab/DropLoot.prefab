@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6955885345168619751}
   - component: {fileID: 1188497701158973720}
-  m_Layer: 0
+  - component: {fileID: -1751809558340278532}
+  m_Layer: 13
   m_Name: DropLoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48,6 +49,27 @@ MonoBehaviour:
   Target: {fileID: 0}
   MinModifier: 7
   MaxModifier: 10
+--- !u!135 &-1751809558340278532
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8781463945909259885}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &5200247159947737126
 PrefabInstance:
   m_ObjectHideFlags: 0
