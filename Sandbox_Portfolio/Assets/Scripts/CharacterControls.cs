@@ -59,6 +59,7 @@ public class CharacterControls : MonoBehaviour, IDataPersistence
 
     // * ########## UI ELEMENTS ########## * //
     public SkillCooldownUI berserkCooldownUI;
+	private Pause pauseMenu;
 
     // * ########## Camera ########## * //
     [SerializeField] Camera mainCamera;
@@ -92,7 +93,13 @@ public class CharacterControls : MonoBehaviour, IDataPersistence
         playerInput.CharacterControls.Skill1.performed += onSkill1;
         playerInput.CharacterControls.Skill2.performed += onSkill2;
         playerInput.CharacterControls.Skill3.performed += onSkill3;
+		playerInput.CharacterControls.Pause.performed += onPause;
     }
+
+	private void Start()
+	{
+		pauseMenu = GameObject.Find("PauseMenu").GetComponent<Pause>();
+	}
 
     void Update()
     {
@@ -406,4 +413,15 @@ public class CharacterControls : MonoBehaviour, IDataPersistence
     {
         data.playerPos = this.transform.position;
     }
+	void onPause(InputAction.CallbackContext context)
+	{
+		if(!pauseMenu)
+		{
+			pauseMenu = GameObject.Find("PauseMenu").GetComponent<Pause>();
+		}
+		if(pauseMenu)
+		{
+			pauseMenu.PressPause();
+		}
+	}
 }
