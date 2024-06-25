@@ -8,12 +8,21 @@ public class TeleportOnInteract : MonoBehaviour
 {
     // * Variables for the teleportation
     [SerializeField] Transform receivingPortal;
-    public bool isTeleporting = false;
+    private bool isTeleporting = false;
     private bool playerIsInTrigger = false;
+    private GameObject player;
+    private GameObject playerTrail;
+    private CharacterController characterController;
 
 
     void Start()
-    {}
+    {
+        player = GameObject.FindWithTag("Player");
+        playerTrail = player.gameObject.transform.Find("ghost/TrailReap").gameObject;
+        characterController = player.GetComponent<CharacterController>();
+
+
+    }
     // * I setup input to G because Geleportation
 
     void Update()
@@ -44,10 +53,8 @@ public class TeleportOnInteract : MonoBehaviour
     // * TP logic
     private IEnumerator TeleportPlayer()
     {
+        playerTrail.gameObject.SetActive(false);
         isTeleporting = true;
-        GameObject player = GameObject.FindWithTag("Player");
-        CharacterController characterController = player.GetComponent<CharacterController>();
-
         Quaternion portalRotationDifference = receivingPortal.rotation * Quaternion.Inverse(transform.rotation);
         portalRotationDifference *= Quaternion.Euler(0f, 180f, 0f);
 
@@ -57,7 +64,9 @@ public class TeleportOnInteract : MonoBehaviour
 
         characterController.enabled = false;
         player.transform.SetPositionAndRotation(newPosition, player.transform.rotation * portalRotationDifference);
+        playerIsInTrigger = false;
         characterController.enabled = true;
+        playerTrail.gameObject.SetActive(true);
         isTeleporting = false;
         yield return null;
     }

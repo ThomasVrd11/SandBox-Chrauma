@@ -3121,7 +3121,7 @@ GameObject:
   - component: {fileID: 7546206496356950438}
   - component: {fileID: 6910131490477369971}
   m_Layer: 0
-  m_Name: Trail (1)
+  m_Name: TrailReap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
