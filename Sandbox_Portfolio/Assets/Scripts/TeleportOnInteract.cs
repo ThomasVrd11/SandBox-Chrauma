@@ -1,21 +1,21 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class TeleportOnInteract : MonoBehaviour
 {
     // * Variables for the teleportation
-    public Transform receivingPortal;
+    [SerializeField] Transform receivingPortal;
     public bool isTeleporting = false;
-    private float tpCooldown = 1.5f;
-    private PortalSameScene portalsamescene;
     private bool playerIsInTrigger = false;
 
 
     void Start()
-    {
-        portalsamescene = receivingPortal.GetComponent<PortalSameScene>();
-    }
+    {}
     // * I setup input to G because Geleportation
+
     void Update()
     {
         if (playerIsInTrigger && Input.GetKeyDown(KeyCode.G) && !isTeleporting)
@@ -45,7 +45,6 @@ public class TeleportOnInteract : MonoBehaviour
     private IEnumerator TeleportPlayer()
     {
         isTeleporting = true;
-        portalsamescene.isTeleporting = true;
         GameObject player = GameObject.FindWithTag("Player");
         CharacterController characterController = player.GetComponent<CharacterController>();
 
@@ -59,10 +58,7 @@ public class TeleportOnInteract : MonoBehaviour
         characterController.enabled = false;
         player.transform.SetPositionAndRotation(newPosition, player.transform.rotation * portalRotationDifference);
         characterController.enabled = true;
-
-        yield return new WaitForSeconds(tpCooldown);
-
         isTeleporting = false;
-        portalsamescene.isTeleporting = false;
+        yield return null;
     }
 }
