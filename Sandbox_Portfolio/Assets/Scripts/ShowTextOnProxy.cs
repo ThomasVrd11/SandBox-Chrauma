@@ -7,9 +7,7 @@ public class ShowTextOnProxy : MonoBehaviour
 {
     public GameObject player;
     public TMP_Text proximityText;
-    public float detectionRadius = 4f;
-    public string message = "Nothing to see here..";
-
+    public string message = "Displayedtext";
     private bool isTextDisplayed = false;
 
     void Start()
@@ -17,26 +15,27 @@ public class ShowTextOnProxy : MonoBehaviour
         proximityText.enabled = false;
     }
 
-    void Update()
+    void OnTriggerEnter(Collider other)
     {
-        float distance = Vector3.Distance(player.transform.position, transform.position);
-
-        if (distance >= detectionRadius && !isTextDisplayed)
+        if (other.gameObject == player && !isTextDisplayed)
         {
             StartCoroutine(DisplayText());
         }
+    }
+
+    void Update()
+    {
     }
 
     private IEnumerator DisplayText()
     {
     isTextDisplayed = true;
     proximityText.text = message;
-    proximityText.transform.position = Camera.main.WorldToScreenPoint(transform.position + Vector3.up * 2);
     proximityText.enabled = true;
 
     yield return new WaitForSeconds(3f);
-
     proximityText.enabled = false;
     isTextDisplayed = false;
+    transform.gameObject.SetActive(false); 
     }
 }
