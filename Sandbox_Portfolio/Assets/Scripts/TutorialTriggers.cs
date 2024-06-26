@@ -17,7 +17,7 @@ public class TutorialTriggers : MonoBehaviour
 	[SerializeField] GameObject tpEndOfTuto;
 	[SerializeField] Slider healthSlider;
 
-    private bool isTutoPaused;
+    //private bool isTutoPaused;
     private void OnTriggerEnter(Collider other) {
         if (other.gameObject.name == "Player")
         {
@@ -39,7 +39,7 @@ public class TutorialTriggers : MonoBehaviour
     }
     public void Resume()
     {
-        isTutoPaused = false;
+        //isTutoPaused = false;
         Time.timeScale = 1f;
         pauseUI.SetActive(false);
         if (gameObject.name == "AttackTutoCube")
@@ -53,7 +53,7 @@ public class TutorialTriggers : MonoBehaviour
     }
     public void Pause()
     {
-        isTutoPaused = true;
+        //isTutoPaused = true;
         Time.timeScale = 0f;
         pauseUI.SetActive(true);
     }

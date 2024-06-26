@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -18,6 +17,8 @@ public class PlayerStats : MonoBehaviour, IDataPersistence
 	private Slider slider_health;
 	private Slider slider_entropy;
 	public bool debugMode = false;
+	public bool debugDeath = false;
+	private GameObject deathScreen;
 
 
 	private void Awake()
@@ -56,6 +57,7 @@ public class PlayerStats : MonoBehaviour, IDataPersistence
 		{
 			UpdateSliders();
 		}
+		if (debugDeath) Death();
 	}
 	void OnSceneLoaded(Scene scene, LoadSceneMode mode)
 	{
@@ -96,6 +98,7 @@ public class PlayerStats : MonoBehaviour, IDataPersistence
 	public void TakeDamage(int damage)
 	{
 		buffer_health -= damage;
+		if(buffer_health < 0) Death();
 	}
 	public void Heal(int heal)
 	{
@@ -122,4 +125,22 @@ public class PlayerStats : MonoBehaviour, IDataPersistence
 		if (debugMode) Debug.Log("health set to: " + slider_health);
 		UpdateSliders();
 	}
+	public void Death()
+	{
+		deathScreen = GameObject.Find("DeathScreen");
+		if (deathScreen)
+		{
+			deathScreen.transform.Find("Panel").gameObject.SetActive(true);
+		}
+	}
+
+	public void HideDeath()
+	{
+		if (deathScreen)
+		{
+			deathScreen.transform.Find("Panel").gameObject.SetActive(false);
+			Debug.Log("Blergh!!");
+		}
+	}
+
 }

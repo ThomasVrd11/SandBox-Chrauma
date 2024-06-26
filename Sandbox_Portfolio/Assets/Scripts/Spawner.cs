@@ -25,6 +25,7 @@ public class Spawner : MonoBehaviour
 	public int numberOfKilledEnnemies;
 	[Tooltip("Number of enemy to spawn before stopping")]
 	public int numberOfEnnemiesNeeded;
+	public bool debugMode;
 
 	private void Awake()
 	{
@@ -67,7 +68,7 @@ public class Spawner : MonoBehaviour
 		{
 			currentActiveEnemies--;
 			numberOfKilledEnnemies++;
-			Debug.Log(numberOfKilledEnnemies);
+			if (debugMode) Debug.Log(numberOfKilledEnnemies);
 		}
 	}
 	void Update()
@@ -76,7 +77,7 @@ public class Spawner : MonoBehaviour
 		{
 			SpawnEnemyAtPoint();
 			timeSinceLastSpawn = Time.time + timeBetweenSpawns;
-			Debug.Log("current active " + currentActiveEnemies);
+			if (debugMode) Debug.Log("current active " + currentActiveEnemies);
 		} else if ( totalSpawnedEnemies >= numberOfEnnemiesNeeded) StopSpawning();
 	}
 	public void SpawnEnemyAtPoint()
@@ -122,6 +123,7 @@ public class Spawner : MonoBehaviour
 
 	public void StartSpawning()
 	{
+		if (debugMode) Debug.Log("start spawning");
 		isSpawningActive = true;
 		totalSpawnedEnemies = 0;
 		numberOfKilledEnnemies = 0;

@@ -75,6 +75,8 @@ MonoBehaviour:
   hptext2: {fileID: 0}
   debugHP: 0
   bloodSplatter: {fileID: 755859507092295895}
+  deathSmoke: {fileID: 8763937972983379371, guid: 08acf530647398b4ea5a06074161a49b,
+    type: 3}
 --- !u!136 &8482715983405545233
 CapsuleCollider:
   m_ObjectHideFlags: 0

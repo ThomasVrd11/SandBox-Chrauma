@@ -6,7 +6,6 @@ using UnityEngine.Pool;
 //debug
 using TMPro;
 
-
 public class Enemy : MonoBehaviour
 {
     public NavMeshAgent agent;
@@ -30,12 +29,14 @@ public class Enemy : MonoBehaviour
     public bool playerInSightRange, playerInAttackRange;
 	EnemyAnimator enemyAnimator;
     GameObject _LifeDropTarget;
+    
 
     //debug
     [SerializeField] TMP_Text hptext;
     [SerializeField] TMP_Text hptext2;
     public bool debugHP = false;
     [SerializeField] ParticleSystem bloodSplatter;
+    [SerializeField] GameObject deathSmoke;
 
     private void Awake()
     {
@@ -139,6 +140,7 @@ public class Enemy : MonoBehaviour
             goscript.Target = _LifeDropTarget.transform;
             goscript.StartFollowing();
         }
+        Instantiate(deathSmoke, transform.position, Quaternion.identity);
         if(enemyPool != null) enemyPool.Release(this);
     }
 

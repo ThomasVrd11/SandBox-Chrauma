@@ -10,6 +10,7 @@ public class WeaponDamage : MonoBehaviour
     [SerializeField] float attackRange = 2f;
     [SerializeField] float attackRadius = 0.5f;
     [SerializeField] Transform attackPoint;
+    public bool debugMode;
 
     private void PerformSweepAttack()
     {
@@ -28,7 +29,7 @@ public class WeaponDamage : MonoBehaviour
                 {
                     int weaponDamage = CalculateDamage();
                     enemy.TakeDamage(weaponDamage);
-                    Debug.Log("Dealt " + weaponDamage + " damage to " + hit.collider.name);
+                    if (debugMode) Debug.Log("Dealt " + weaponDamage + " damage to " + hit.collider.name);
                 }
             }
         }
@@ -45,7 +46,7 @@ public class WeaponDamage : MonoBehaviour
 
     public void OnAttack()
     {
-        Debug.Log("performing sweep");
+        if (debugMode) Debug.Log("performing sweep");
         PerformSweepAttack();
     }
 

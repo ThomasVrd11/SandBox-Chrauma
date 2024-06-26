@@ -16,4 +16,9 @@ public class UILinker : MonoBehaviour
     {
         GameManager.instance.ExitGame();
     }
+    public void Restart()
+    {
+        PlayerStats.instance.HideDeath();
+        GameManager.instance.RestartGame();
+    }
 }
