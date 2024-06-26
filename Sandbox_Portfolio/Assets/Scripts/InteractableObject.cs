@@ -7,19 +7,18 @@ public class InteractableObject : MonoBehaviour
 {
     public string interactMessage = "Press G to interact";
     public GameObject messagePrefab;
-    private GameObject messageInstance;
     private TMP_Text messageText;
     private bool isPlayerNearby = false;
     private bool messageDisplayed = false;
+    [SerializeField] string messageAfter;
 
     void Start()
     {
         if (messagePrefab != null)
         {
-            messageInstance = Instantiate(messagePrefab, transform.position + Vector3.up * 2, Quaternion.identity, transform);
-            messageText = messageInstance.transform.Find("MsgCanvas/Text").GetComponent<TMP_Text>();
+            messageText = messagePrefab.transform.Find("MsgCanvas/Text (TMP)").GetComponent<TMP_Text>();
             messageText.text = "";
-            messageInstance.SetActive(false);
+            messagePrefab.SetActive(false);
         }
     }
 
@@ -27,7 +26,7 @@ public class InteractableObject : MonoBehaviour
     {
         if (isPlayerNearby && Input.GetKeyDown(KeyCode.G))
         {
-            StartCoroutine(DisplayMessage(interactMessage, 3f));
+            StartCoroutine(DisplayMessage(messageAfter, 3f));
         }
     }
 
@@ -38,7 +37,7 @@ public class InteractableObject : MonoBehaviour
             isPlayerNearby = true;
             if (!messageDisplayed)
             {
-                StartCoroutine(DisplayMessage(interactMessage, 3f));
+                StartCoroutine(DisplayMessage(interactMessage, 30f));
             }
         }
     }
@@ -48,6 +47,11 @@ public class InteractableObject : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isPlayerNearby = false;
+            if (messageDisplayed)
+            {
+                messagePrefab.SetActive(false);
+                messageDisplayed = false;
+            }
         }
     }
     // * Nico jv me tuer
@@ -56,11 +60,11 @@ public class InteractableObject : MonoBehaviour
         if (messageText != null)
         {
         
-            messageInstance.SetActive(true);
+            messagePrefab.SetActive(true);
             messageText.text = message;
             messageDisplayed = true;
             yield return new WaitForSeconds(delay);
-            messageInstance.SetActive(false);
+            messagePrefab.SetActive(false);
             messageDisplayed = false;
         }
     }
