@@ -122,15 +122,15 @@ public class Boss : MonoBehaviour
     //* SWITCH
     private void PerformAttack1()
     {
-        enemyAnimator.startAttackAnimation("Attack1");
+        //enemyAnimator.startAttackAnimation("Attack1");
     }
     private void PerformAttack2()
     {
-        enemyAnimator.startAttackAnimation("Attack2");
+        //enemyAnimator.startAttackAnimation("Attack2");
     }
     private void PerformAttack3()
     {
-        enemyAnimator.startAttackAnimation("Attack3");
+        //enemyAnimator.startAttackAnimation("Attack3");
     }
 
     private void ResetAttack()
@@ -165,7 +165,7 @@ public class Boss : MonoBehaviour
             goscript.StartFollowing();
         }
         Instantiate(deathSmoke, transform.position, Quaternion.identity);
-        if(enemyPool != null) enemyPool.Release(this);
+        //if(enemyPool != null) enemyPool.Release(this);
     }
 
     private void OnDrawGizmosSelected_()
