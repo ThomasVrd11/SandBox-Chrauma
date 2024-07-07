@@ -475,7 +475,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 289793674}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1184,6 +1184,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1019530741}
+    - targetCorrespondingSourceObject: {fileID: 1540333649370906, guid: e091941bee533bf4d9a4b38c3f89b6f5,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1019530742}
   m_SourcePrefab: {fileID: 100100000, guid: e091941bee533bf4d9a4b38c3f89b6f5, type: 3}
 --- !u!1 &1019530740 stripped
 GameObject:
@@ -1212,6 +1216,20 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.0000002, y: 3.5919244, z: 0.93099385}
   m_Center: {x: 3.0481347e-11, y: 9.749831e-10, z: -0.034503937}
+--- !u!114 &1019530742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1019530740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a1cdadf56ed4bb46a8a2b224b9ef590, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawner: {fileID: 1741472918}
+  nbrKillsToOpen: 3
 --- !u!1 &1040270556
 GameObject:
   m_ObjectHideFlags: 0
