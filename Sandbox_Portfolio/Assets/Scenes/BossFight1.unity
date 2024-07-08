@@ -724,7 +724,7 @@ PrefabInstance:
     - target: {fileID: 6625792053139169799, guid: 8aee77b82f038674ea039e9eb05e77b9,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -39.14711
+      value: -44.92
       objectReference: {fileID: 0}
     - target: {fileID: 6625792053139169799, guid: 8aee77b82f038674ea039e9eb05e77b9,
         type: 3}
@@ -734,7 +734,7 @@ PrefabInstance:
     - target: {fileID: 6625792053139169799, guid: 8aee77b82f038674ea039e9eb05e77b9,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 21.500246
+      value: 20.71
       objectReference: {fileID: 0}
     - target: {fileID: 6625792053139169799, guid: 8aee77b82f038674ea039e9eb05e77b9,
         type: 3}
@@ -934,10 +934,10 @@ MonoBehaviour:
   lifeDropPrefab: {fileID: 0}
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 3
-  timeBetweenAttacks: 0
+  timeBetweenAttacks: 8
   attackCooldown: 8
-  sightRange: 0
-  attackRange: 0
+  sightRange: 2.55
+  attackRange: 1
   playerInSightRange: 0
   playerInAttackRange: 0
   hptext: {fileID: 0}

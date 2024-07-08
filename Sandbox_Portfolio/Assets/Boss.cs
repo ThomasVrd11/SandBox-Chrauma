@@ -37,6 +37,10 @@ public class Boss : MonoBehaviour
     public bool debugHP = false;
     [SerializeField] ParticleSystem bloodSplatter;
     [SerializeField] GameObject deathSmoke;
+    private Vector3 currentPos;
+    private Vector3 oldPos;
+    private bool isWalking;
+
 
     private void Awake()
     {
@@ -50,16 +54,32 @@ public class Boss : MonoBehaviour
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        currentPos = gameObject.transform.position;
+        oldPos = currentPos;
+
     }
 
     private void Update()
     {
+        currentPos = transform.position;
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
         if (!playerInSightRange && !playerInAttackRange) Patroling();
         if (playerInSightRange && !playerInAttackRange && !alreadyAttacked) ChasePlayer();
         if (playerInSightRange && playerInAttackRange) AttackPlayer();
+
+        if (currentPos != oldPos)
+        {
+            isWalking = true;
+            oldPos = currentPos;
+        }
+        else
+        {
+            if (isWalking) isWalking = false;
+        }
+        animator.SetBool("isWalking", isWalking);
+        animator.SetBool("isIdle", !isWalking);
     }
 
     private void Patroling()
