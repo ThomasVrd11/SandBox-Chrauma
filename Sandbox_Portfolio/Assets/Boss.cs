@@ -2,7 +2,6 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.AI;
 using UnityEngine.Pool;
-
 using TMPro;
 
 public class Boss : MonoBehaviour
@@ -20,9 +19,9 @@ public class Boss : MonoBehaviour
     public float walkPointRange;
 
     // * Attack settings
-    public float timeBetweenAttacks;
     public float attackCooldown = 8f;
-    bool alreadyAttacked;
+    private float attackTimer;
+    bool isOnCooldown;
 
     // * Detection ranges
     public float sightRange, attackRange;
@@ -31,7 +30,7 @@ public class Boss : MonoBehaviour
     // * Animator
     private Animator animator;
 
-    // * debug
+    // * Debug
     [SerializeField] TMP_Text hptext;
     [SerializeField] TMP_Text hptext2;
     public bool debugHP = false;
@@ -41,13 +40,11 @@ public class Boss : MonoBehaviour
     private Vector3 oldPos;
     private bool isWalking;
 
-
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponentInChildren<Animator>();
 
-        // *set current hp when spawn
         currentHealth = startingHealth;
     }
 
@@ -56,7 +53,8 @@ public class Boss : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").transform;
         currentPos = gameObject.transform.position;
         oldPos = currentPos;
-
+        attackTimer = 0f;
+        isOnCooldown = false;
     }
 
     private void Update()
@@ -66,8 +64,8 @@ public class Boss : MonoBehaviour
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
         if (!playerInSightRange && !playerInAttackRange) Patroling();
-        if (playerInSightRange && !playerInAttackRange && !alreadyAttacked) ChasePlayer();
-        if (playerInSightRange && playerInAttackRange) AttackPlayer();
+        if (playerInSightRange && !playerInAttackRange) ChasePlayer();
+        if (playerInSightRange && playerInAttackRange) TryAttackPlayer();
 
         if (currentPos != oldPos)
         {
@@ -80,6 +78,15 @@ public class Boss : MonoBehaviour
         }
         animator.SetBool("isWalking", isWalking);
         animator.SetBool("isIdle", !isWalking);
+
+        if (isOnCooldown)
+        {
+            attackTimer -= Time.deltaTime;
+            if (attackTimer <= 0f)
+            {
+                isOnCooldown = false;
+            }
+        }
     }
 
     private void Patroling()
@@ -105,24 +112,26 @@ public class Boss : MonoBehaviour
         agent.SetDestination(player.position);
     }
 
+    private void TryAttackPlayer()
+    {
+        if (!isOnCooldown)
+        {
+            AttackPlayer();
+        }
+    }
+
     private void AttackPlayer()
     {
         agent.SetDestination(transform.position);
         transform.LookAt(player);
-        if (!alreadyAttacked)
-        {
-            int attackIndex = Random.Range(1, 4);
-            animator.SetInteger("AttackIndex", attackIndex);
-            animator.SetTrigger("Attack");
 
-            alreadyAttacked = true;
-            Invoke(nameof(ResetAttack), attackCooldown);
-        }
-    }
+        int attackIndex = Random.Range(1, 4);
+        animator.SetInteger("AttackIndex", attackIndex);
+        animator.SetTrigger("Attack");
 
-    private void ResetAttack()
-    {
-        alreadyAttacked = false;
+        isOnCooldown = true;
+        attackTimer = attackCooldown;
+        playerInAttackRange = false;
     }
 
     public void TakeDamage(int damage)
