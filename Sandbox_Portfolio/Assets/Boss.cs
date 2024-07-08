@@ -82,6 +82,7 @@ public class Boss : MonoBehaviour
         if (isOnCooldown)
         {
             attackTimer -= Time.deltaTime;
+            Debug.Log(attackTimer);
             if (attackTimer <= 0f)
             {
                 isOnCooldown = false;
