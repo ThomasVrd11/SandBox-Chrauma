@@ -21,16 +21,17 @@ public class Boss : MonoBehaviour
 
     // * Attack settings
     public float timeBetweenAttacks;
+    public float attackCooldown = 8f;
     bool alreadyAttacked;
 
     // * Detection ranges
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
-	EnemyAnimator enemyAnimator;
-    GameObject _LifeDropTarget;
-    
 
-    //debug
+    // * Animator
+    private Animator animator;
+
+    // * debug
     [SerializeField] TMP_Text hptext;
     [SerializeField] TMP_Text hptext2;
     public bool debugHP = false;
@@ -40,28 +41,22 @@ public class Boss : MonoBehaviour
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
-		enemyAnimator = GetComponentInChildren<EnemyAnimator>();
+        animator = GetComponentInChildren<Animator>();
 
         // *set current hp when spawn
         currentHealth = startingHealth;
-
     }
 
-
-	private void Start()
-	{
+    private void Start()
+    {
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        _LifeDropTarget = GameObject.FindGameObjectWithTag("LifeDropTarget");
-        if (debugHP) DebugHP(0);
-	}
+    }
 
     private void Update()
     {
-        
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
-        
         if (!playerInSightRange && !playerInAttackRange) Patroling();
         if (playerInSightRange && !playerInAttackRange && !alreadyAttacked) ChasePlayer();
         if (playerInSightRange && playerInAttackRange) AttackPlayer();
@@ -70,13 +65,10 @@ public class Boss : MonoBehaviour
     private void Patroling()
     {
         if (!walkPointSet) SearchWalkPoint();
-        if (walkPointSet)
-            agent.SetDestination(walkPoint);
+        if (walkPointSet) agent.SetDestination(walkPoint);
 
         Vector3 distanceToWalkPoint = transform.position - walkPoint;
-        // * assez proche ??
-        if (distanceToWalkPoint.magnitude < 1)
-            walkPointSet = false;
+        if (distanceToWalkPoint.magnitude < 1) walkPointSet = false;
     }
 
     private void SearchWalkPoint()
@@ -85,8 +77,7 @@ public class Boss : MonoBehaviour
         float randomX = Random.Range(-walkPointRange, walkPointRange);
         walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
 
-        if (Physics.Raycast(walkPoint, -transform.up, 2f, whatIsGround))
-            walkPointSet = true;
+        if (Physics.Raycast(walkPoint, -transform.up, 2f, whatIsGround)) walkPointSet = true;
     }
 
     private void ChasePlayer()
@@ -101,36 +92,12 @@ public class Boss : MonoBehaviour
         if (!alreadyAttacked)
         {
             int attackIndex = Random.Range(1, 4);
-            switch (attackIndex)
-            {
-                case 1:
-                    PerformAttack1();
-                    break;
-                case 2:
-                    PerformAttack2();
-                    break;
-                case 3:
-                    PerformAttack3();
-                    break;
-            }
+            animator.SetInteger("AttackIndex", attackIndex);
+            animator.SetTrigger("Attack");
 
             alreadyAttacked = true;
-            Invoke(nameof(ResetAttack), timeBetweenAttacks);
+            Invoke(nameof(ResetAttack), attackCooldown);
         }
-    }
-
-    //* SWITCH
-    private void PerformAttack1()
-    {
-        //enemyAnimator.startAttackAnimation("Attack1");
-    }
-    private void PerformAttack2()
-    {
-        //enemyAnimator.startAttackAnimation("Attack2");
-    }
-    private void PerformAttack3()
-    {
-        //enemyAnimator.startAttackAnimation("Attack3");
     }
 
     private void ResetAttack()
@@ -143,38 +110,30 @@ public class Boss : MonoBehaviour
         currentHealth -= damage;
         if (debugHP) Debug.Log(gameObject.name + " hp:" + currentHealth);
         bloodSplatter.Play();
-        if (debugHP )DebugHP(damage);
+        if (debugHP) DebugHP(damage);
         if (currentHealth <= 0) EnemyDies();
-    }
-    private IObjectPool<Enemy> enemyPool;
-
-
-    public void SetPool(IObjectPool<Enemy> pool)
-    {
-        enemyPool = pool;
     }
 
     private void EnemyDies()
     {
-        // * il va drop la LifeDrop
-        for (int i = 0; i < startingHealth/10; i++)
+        Instantiate(deathSmoke, transform.position, Quaternion.identity);
+        for (int i = 0; i < startingHealth / 10; i++)
         {
             var go = Instantiate(lifeDropPrefab, transform.position + new Vector3(0, Random.Range(0, 2)), Quaternion.identity);
             var goscript = go.GetComponent<FollowLifeDrop>();
-            goscript.Target = _LifeDropTarget.transform;
+            goscript.Target = GameObject.FindGameObjectWithTag("LifeDropTarget").transform;
             goscript.StartFollowing();
         }
-        Instantiate(deathSmoke, transform.position, Quaternion.identity);
-        //if(enemyPool != null) enemyPool.Release(this);
     }
 
-    private void OnDrawGizmosSelected_()
+    private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, sightRange);
     }
+
     private void DebugHP(int damage)
     {
         hptext.text = "" + currentHealth;
