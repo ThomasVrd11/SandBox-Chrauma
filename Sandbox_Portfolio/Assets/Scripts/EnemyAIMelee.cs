@@ -156,4 +156,8 @@ public class Enemy : MonoBehaviour
         hptext.text = "" + currentHealth;
         hptext2.text = "" + damage;
     }
+    public void ResetWalkPoint()
+    {
+        SearchWalkPoint();
+    }
 }
