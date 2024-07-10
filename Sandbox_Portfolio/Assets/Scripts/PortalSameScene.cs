@@ -11,7 +11,7 @@ public class PortalSameScene : MonoBehaviour
 
     void Start()
     {
-        portalsamescene = receivingPortal.GetComponent<PortalSameScene>();
+        if (receivingPortal) portalsamescene = receivingPortal.GetComponent<PortalSameScene>();
     }
 
     private void OnTriggerEnter(Collider other)

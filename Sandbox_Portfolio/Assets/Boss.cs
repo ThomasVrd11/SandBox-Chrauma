@@ -4,7 +4,7 @@ using UnityEngine.AI;
 using UnityEngine.Pool;
 using TMPro;
 
-public class Boss : MonoBehaviour
+public class Boss : BaseEnemy
 {
     public NavMeshAgent agent;
     public Transform player;
@@ -82,7 +82,6 @@ public class Boss : MonoBehaviour
         if (isOnCooldown)
         {
             attackTimer -= Time.deltaTime;
-            Debug.Log(attackTimer);
             if (attackTimer <= 0f)
             {
                 isOnCooldown = false;
@@ -135,7 +134,7 @@ public class Boss : MonoBehaviour
         playerInAttackRange = false;
     }
 
-    public void TakeDamage(int damage)
+    public override void TakeDamage(int damage)
     {
         currentHealth -= damage;
         if (debugHP) Debug.Log(gameObject.name + " hp:" + currentHealth);
@@ -146,7 +145,7 @@ public class Boss : MonoBehaviour
 
     private void EnemyDies()
     {
-        Instantiate(deathSmoke, transform.position, Quaternion.identity);
+        //Instantiate(deathSmoke, transform.position, Quaternion.identity);
         for (int i = 0; i < startingHealth / 10; i++)
         {
             var go = Instantiate(lifeDropPrefab, transform.position + new Vector3(0, Random.Range(0, 2)), Quaternion.identity);
@@ -154,6 +153,7 @@ public class Boss : MonoBehaviour
             goscript.Target = GameObject.FindGameObjectWithTag("LifeDropTarget").transform;
             goscript.StartFollowing();
         }
+        Destroy(gameObject);
     }
 
     private void OnDrawGizmosSelected()
